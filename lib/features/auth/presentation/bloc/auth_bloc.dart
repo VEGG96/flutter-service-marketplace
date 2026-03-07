@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/constants/app_constants.dart';
 import '../../data/auth_repository.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
@@ -18,8 +19,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           if (user != null) return Authenticated(user);
           return Unauthenticated();
         },
-        onError: (_, stackTrace) =>
-            const AuthError('Error checking auth status'),
+        onError: (_, stackTrace) => const AuthError(ApiErrorMessages.unknown),
       );
     });
 
@@ -31,7 +31,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           password: event.password,
         );
       } catch (e) {
-        emit(AuthError(e.toString()));
+        emit(AuthError(_formatErrorMessage(e)));
       }
     });
 
@@ -43,14 +43,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           password: event.password,
         );
       } catch (e) {
-        emit(AuthError(e.toString()));
+        emit(AuthError(_formatErrorMessage(e)));
       }
     });
 
     on<SignOutRequested>((event, emit) async {
       emit(AuthLoading());
-      await _authRepository.signOut();
-      emit(Unauthenticated());
+      try {
+        await _authRepository.signOut();
+        emit(Unauthenticated());
+      } catch (e) {
+        emit(AuthError(_formatErrorMessage(e)));
+      }
     });
+  }
+
+  String _formatErrorMessage(Object error) {
+    final String message = error.toString();
+    if (message.startsWith('Exception: ')) {
+      return message.replaceFirst('Exception: ', '');
+    }
+    return message;
   }
 }

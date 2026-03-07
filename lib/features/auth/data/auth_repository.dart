@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../../core/constants/app_constants.dart';
 import '../models/user_model.dart';
 
 abstract class AuthRepository {
@@ -27,22 +28,38 @@ class FirebaseAuthRepository implements AuthRepository {
 
   @override
   Future<void> signIn({required String email, required String password}) async {
-    await _firebaseAuth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      throw Exception(FirebaseAuthErrorMessages.fromCode(e.code));
+    } catch (_) {
+      throw Exception(ApiErrorMessages.unknown);
+    }
   }
 
   @override
   Future<void> signUp({required String email, required String password}) async {
-    await _firebaseAuth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      throw Exception(FirebaseAuthErrorMessages.fromCode(e.code));
+    } catch (_) {
+      throw Exception(ApiErrorMessages.unknown);
+    }
   }
 
   @override
   Future<void> signOut() async {
-    await _firebaseAuth.signOut();
+    try {
+      await _firebaseAuth.signOut();
+    } catch (_) {
+      throw Exception(ApiErrorMessages.unknown);
+    }
   }
 }
