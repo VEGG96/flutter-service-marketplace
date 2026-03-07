@@ -20,7 +20,7 @@ Future<void> initDependencies() async {
 
   if (!sl.isRegistered<AuthRepository>()) {
     sl.registerLazySingleton<AuthRepository>(
-      () => FirebaseAuthRepository(firebaseAuth: sl()),
+      () => FirebaseAuthRepository(firebaseAuth: sl(), firebaseFirestore: sl()),
     );
   }
 
