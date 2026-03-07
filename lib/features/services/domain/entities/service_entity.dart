@@ -1,0 +1,3 @@
+class ServiceEntity {
+  const ServiceEntity();
+}

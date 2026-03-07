@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/profile_repository.dart';
-import '../../models/profile_model.dart';
+import '../../domain/entities/profile_entity.dart';
+import '../../domain/repositories/profile_repository.dart';
 import 'profile_event.dart';
 import 'profile_state.dart';
 
@@ -23,9 +23,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ) async {
     emit(state.copyWith(isLoading: true, clearError: true, clearSuccess: true));
 
-    await emit.forEach<ProfileModel>(
+    await emit.forEach<ProfileEntity>(
       _profileRepository.watchProfile(),
-      onData: (ProfileModel profile) {
+      onData: (ProfileEntity profile) {
         return state.copyWith(
           profile: profile,
           isLoading: false,
@@ -57,7 +57,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       return;
     }
 
-    final ProfileModel updatedProfile = state.profile!.copyWith(
+    final ProfileEntity updatedProfile = state.profile!.copyWith(
       fullName: event.input.fullName.trim(),
       businessName: event.input.businessName.trim(),
       phone: event.input.phone.trim(),

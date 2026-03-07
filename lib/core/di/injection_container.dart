@@ -4,9 +4,11 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../features/auth/data/auth_repository.dart';
+import '../../features/auth/data/repositories/firebase_auth_repository.dart';
+import '../../features/auth/domain/repositories/auth_repository.dart';
 import '../../features/auth/presentation/bloc/auth_bloc.dart';
-import '../../features/profile/data/profile_repository.dart';
+import '../../features/profile/data/repositories/firebase_profile_repository.dart';
+import '../../features/profile/domain/repositories/profile_repository.dart';
 import '../../features/profile/presentation/bloc/profile_bloc.dart';
 
 final GetIt sl = GetIt.instance;

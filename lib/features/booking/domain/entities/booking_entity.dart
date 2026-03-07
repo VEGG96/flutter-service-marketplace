@@ -1,0 +1,3 @@
+class BookingEntity {
+  const BookingEntity();
+}

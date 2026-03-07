@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../constants/app_constants.dart';
-import '../../features/auth/presentation/login_screen.dart';
-import '../../features/auth/presentation/register_screen.dart';
-import '../../features/booking/presentation/booking_screen.dart';
-import '../../features/chat/presentation/chat_screen.dart';
-import '../../features/profile/presentation/profile_screen.dart';
-import '../../features/services/presentation/service_detail_screen.dart';
-import '../../features/services/presentation/services_screen.dart';
+import '../../features/auth/presentation/pages/login_page.dart';
+import '../../features/auth/presentation/pages/register_page.dart';
+import '../../features/booking/presentation/pages/booking_page.dart';
+import '../../features/chat/presentation/pages/chat_page.dart';
+import '../../features/profile/presentation/pages/profile_page.dart';
+import '../../features/services/presentation/pages/service_detail_page.dart';
+import '../../features/services/presentation/pages/services_page.dart';
 
 class AppRouter {
   const AppRouter._();
@@ -20,45 +20,45 @@ class AppRouter {
         path: AppRoutes.login,
         name: 'login',
         builder: (BuildContext context, GoRouterState state) =>
-            const LoginScreen(),
+            const LoginPage(),
       ),
       GoRoute(
         path: AppRoutes.register,
         name: 'register',
         builder: (BuildContext context, GoRouterState state) =>
-            const RegisterScreen(),
+            const RegisterPage(),
       ),
       GoRoute(
         path: AppRoutes.services,
         name: 'services',
         builder: (BuildContext context, GoRouterState state) =>
-            const ServicesScreen(),
+            const ServicesPage(),
       ),
       GoRoute(
         path: AppRoutes.serviceDetail,
         name: 'service-detail',
         builder: (BuildContext context, GoRouterState state) {
           final String serviceId = state.uri.queryParameters['id'] ?? '';
-          return ServiceDetailScreen(serviceId: serviceId);
+          return ServiceDetailPage(serviceId: serviceId);
         },
       ),
       GoRoute(
         path: AppRoutes.booking,
         name: 'booking',
         builder: (BuildContext context, GoRouterState state) =>
-            const BookingScreen(),
+            const BookingPage(),
       ),
       GoRoute(
         path: AppRoutes.chat,
         name: 'chat',
         builder: (BuildContext context, GoRouterState state) =>
-            const ChatScreen(),
+            const ChatPage(),
       ),
       GoRoute(
         path: AppRoutes.profile,
         name: 'profile',
         builder: (BuildContext context, GoRouterState state) =>
-            const ProfileScreen(),
+            const ProfilePage(),
       ),
     ],
     errorBuilder: (BuildContext context, GoRouterState state) {

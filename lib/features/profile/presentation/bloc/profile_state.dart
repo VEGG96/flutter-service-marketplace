@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 
-import '../../models/profile_model.dart';
+import '../../domain/entities/profile_entity.dart';
 
 class ProfileState extends Equatable {
-  final ProfileModel? profile;
+  final ProfileEntity? profile;
   final bool isLoading;
   final bool isSaving;
   final bool isUploadingImage;
@@ -22,7 +22,7 @@ class ProfileState extends Equatable {
   factory ProfileState.initial() => const ProfileState(isLoading: true);
 
   ProfileState copyWith({
-    ProfileModel? profile,
+    ProfileEntity? profile,
     bool? isLoading,
     bool? isSaving,
     bool? isUploadingImage,
