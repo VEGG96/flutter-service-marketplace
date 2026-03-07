@@ -9,7 +9,15 @@ class BookingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Reservas')),
+      appBar: AppBar(
+        title: const Text('Reservas'),
+        actions: <Widget>[
+          IconButton(
+            onPressed: () => context.go(AppRoutes.profile),
+            icon: const Icon(Icons.person_outline_rounded),
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -25,6 +33,11 @@ class BookingScreen extends StatelessWidget {
             OutlinedButton(
               onPressed: () => context.go(AppRoutes.services),
               child: const Text('Volver a servicios'),
+            ),
+            const SizedBox(height: 12),
+            OutlinedButton(
+              onPressed: () => context.go(AppRoutes.profile),
+              child: const Text('Ir a mi perfil'),
             ),
           ],
         ),

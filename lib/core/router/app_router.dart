@@ -6,6 +6,7 @@ import '../../features/auth/presentation/login_screen.dart';
 import '../../features/auth/presentation/register_screen.dart';
 import '../../features/booking/presentation/booking_screen.dart';
 import '../../features/chat/presentation/chat_screen.dart';
+import '../../features/profile/presentation/profile_screen.dart';
 import '../../features/services/presentation/service_detail_screen.dart';
 import '../../features/services/presentation/services_screen.dart';
 
@@ -52,6 +53,12 @@ class AppRouter {
         name: 'chat',
         builder: (BuildContext context, GoRouterState state) =>
             const ChatScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.profile,
+        name: 'profile',
+        builder: (BuildContext context, GoRouterState state) =>
+            const ProfileScreen(),
       ),
     ],
     errorBuilder: (BuildContext context, GoRouterState state) {

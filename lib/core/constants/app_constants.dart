@@ -16,6 +16,7 @@ class AppRoutes {
   static const String serviceDetail = '/services/detail';
   static const String booking = '/booking';
   static const String chat = '/chat';
+  static const String profile = '/profile';
 }
 
 class FirestoreCollections {
@@ -33,6 +34,13 @@ class FirestoreFields {
 
   static const String id = 'id';
   static const String email = 'email';
+  static const String fullName = 'fullName';
+  static const String businessName = 'businessName';
+  static const String phone = 'phone';
+  static const String city = 'city';
+  static const String address = 'address';
+  static const String bio = 'bio';
+  static const String profileImageUrl = 'profileImageUrl';
   static const String createdAt = 'createdAt';
   static const String updatedAt = 'updatedAt';
   static const String userId = 'userId';

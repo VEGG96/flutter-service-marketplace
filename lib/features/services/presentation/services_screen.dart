@@ -46,7 +46,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
         context.go(AppRoutes.booking);
         break;
       case 3:
-        context.go(AppRoutes.login);
+        context.go(AppRoutes.profile);
         break;
     }
   }
@@ -67,7 +67,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
         ),
         actions: <Widget>[
           IconButton(
-            onPressed: () => context.go(AppRoutes.login),
+            onPressed: () => context.go(AppRoutes.profile),
             icon: const Icon(Icons.account_circle_rounded),
           ),
         ],
@@ -135,7 +135,8 @@ class _ServicesScreenState extends State<ServicesScreen> {
                             final _Professional item = _nearbyPros[index];
                             return _ProfessionalCard(
                               item: item,
-                              onViewProfile: () => context.go(AppRoutes.chat),
+                              onViewProfile: () =>
+                                  context.go(AppRoutes.profile),
                             );
                           },
                         ),
