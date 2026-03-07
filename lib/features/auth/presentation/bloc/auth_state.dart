@@ -13,6 +13,8 @@ class AuthInitial extends AuthState {}
 
 class AuthLoading extends AuthState {}
 
+class AuthSubmitting extends AuthState {}
+
 class Authenticated extends AuthState {
   final UserEntity user;
 

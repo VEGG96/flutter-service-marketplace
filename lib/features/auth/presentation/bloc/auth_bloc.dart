@@ -24,7 +24,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<SignInRequested>((event, emit) async {
-      emit(AuthLoading());
+      emit(AuthSubmitting());
       try {
         await _authRepository.signIn(
           email: event.email,
@@ -36,7 +36,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<SignUpRequested>((event, emit) async {
-      emit(AuthLoading());
+      emit(AuthSubmitting());
       try {
         await _authRepository.signUp(
           email: event.email,
@@ -48,7 +48,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<SignOutRequested>((event, emit) async {
-      emit(AuthLoading());
+      emit(AuthSubmitting());
       try {
         await _authRepository.signOut();
         emit(Unauthenticated());

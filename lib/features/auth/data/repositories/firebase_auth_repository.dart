@@ -18,9 +18,11 @@ class FirebaseAuthRepository implements AuthRepository {
 
   @override
   Stream<UserEntity?> get currentUser =>
-      _firebaseAuth.authStateChanges().map((user) {
+      _firebaseAuth.authStateChanges().asyncMap((user) async {
         if (user == null) return null;
-        return UserModel(id: user.uid, email: user.email);
+
+        final UserRole role = await _resolveUserRole(user.uid);
+        return UserModel(id: user.uid, email: user.email, role: role);
       });
 
   @override
@@ -72,10 +74,26 @@ class FirebaseAuthRepository implements AuthRepository {
         .set(<String, dynamic>{
           FirestoreFields.id: user.uid,
           FirestoreFields.email: user.email,
+          FirestoreFields.role: UserRole.client.value,
           FirestoreFields.createdAt: FieldValue.serverTimestamp(),
           FirestoreFields.updatedAt: FieldValue.serverTimestamp(),
           FirestoreFields.status: 'active',
         }, SetOptions(merge: true));
+  }
+
+  Future<UserRole> _resolveUserRole(String userId) async {
+    try {
+      final DocumentSnapshot<Map<String, dynamic>> snapshot =
+          await _firebaseFirestore
+              .collection(FirestoreCollections.users)
+              .doc(userId)
+              .get();
+
+      final Map<String, dynamic>? data = snapshot.data();
+      return UserRoleMapper.fromValue(data?[FirestoreFields.role] as String?);
+    } on FirebaseException {
+      return UserRole.client;
+    }
   }
 
   String _mapFirestoreError(FirebaseException exception) {

@@ -10,9 +10,11 @@ class AppConstants {
 class AppRoutes {
   const AppRoutes._();
 
+  static const String splash = '/splash';
   static const String login = '/login';
   static const String register = '/register';
   static const String services = '/services';
+  static const String providerDashboard = '/provider-dashboard';
   static const String serviceDetail = '/services/detail';
   static const String booking = '/booking';
   static const String chat = '/chat';
@@ -34,6 +36,7 @@ class FirestoreFields {
 
   static const String id = 'id';
   static const String email = 'email';
+  static const String role = 'role';
   static const String fullName = 'fullName';
   static const String businessName = 'businessName';
   static const String phone = 'phone';
