@@ -49,3 +49,7 @@ android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
 lib/firebase_options.dart
 macos/Runner/GoogleService-Info.plist
+
+# Google Maps API keys (local-only files)
+ios/Flutter/GoogleMapsConfig.local.xcconfig
+web/google_maps_config.local.js
