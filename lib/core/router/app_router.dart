@@ -12,6 +12,7 @@ import '../../features/booking/presentation/pages/booking_page.dart';
 import '../../features/chat/presentation/pages/chat_page.dart';
 import '../../features/profile/presentation/pages/profile_page.dart';
 import '../../features/provider/presentation/pages/provider_dashboard_page.dart';
+import '../../features/provider/presentation/pages/provider_availability_page.dart';
 import '../../features/provider/presentation/pages/provider_profile_page.dart';
 import '../../features/services/presentation/pages/service_detail_page.dart';
 import '../../features/services/presentation/pages/services_page.dart';
@@ -94,6 +95,12 @@ GoRouter createRouter(AuthBloc authBloc) {
         name: 'provider-dashboard',
         builder: (BuildContext context, GoRouterState state) =>
             const ProviderDashboardPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.providerAvailability,
+        name: 'provider-availability',
+        builder: (BuildContext context, GoRouterState state) =>
+            const ProviderAvailabilityPage(),
       ),
       GoRoute(
         path: AppRoutes.serviceDetail,
