@@ -11,7 +11,8 @@ import '../../features/auth/presentation/pages/splash_page.dart';
 import '../../features/booking/presentation/pages/booking_page.dart';
 import '../../features/chat/presentation/pages/chat_page.dart';
 import '../../features/profile/presentation/pages/profile_page.dart';
-import '../../features/services/presentation/pages/provider_dashboard_page.dart';
+import '../../features/provider/presentation/pages/provider_dashboard_page.dart';
+import '../../features/provider/presentation/pages/provider_profile_page.dart';
 import '../../features/services/presentation/pages/service_detail_page.dart';
 import '../../features/services/presentation/pages/services_page.dart';
 import 'go_router_refresh_stream.dart';
@@ -100,6 +101,14 @@ GoRouter createRouter(AuthBloc authBloc) {
         builder: (BuildContext context, GoRouterState state) {
           final String serviceId = state.uri.queryParameters['id'] ?? '';
           return ServiceDetailPage(serviceId: serviceId);
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.providerProfile,
+        name: 'provider-profile',
+        builder: (BuildContext context, GoRouterState state) {
+          final String providerId = state.uri.queryParameters['id'] ?? '';
+          return ProviderProfilePage(providerId: providerId);
         },
       ),
       GoRoute(

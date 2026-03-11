@@ -277,7 +277,9 @@ class _ProviderCard extends StatelessWidget {
               ),
             ),
             TextButton(
-              onPressed: () => context.go(AppRoutes.profile),
+              onPressed: () => context.push(
+                '${AppRoutes.providerProfile}?id=${service.providerId}',
+              ),
               child: const Text('Ver perfil'),
             ),
           ],
@@ -698,6 +700,7 @@ String _formatCurrency(double value) {
 
 class _ServiceDetail {
   final String id;
+  final String providerId;
   final String name;
   final String category;
   final String description;
@@ -718,6 +721,7 @@ class _ServiceDetail {
 
   const _ServiceDetail({
     required this.id,
+    required this.providerId,
     required this.name,
     required this.category,
     required this.description,
@@ -756,6 +760,7 @@ const Map<String, _ServiceDetail> _serviceCatalog =
     <String, _ServiceDetail>{
   'plomeria': _ServiceDetail(
     id: 'plomeria',
+    providerId: 'carlos-gomez',
     name: 'Plomeria inmediata',
     category: 'Urgencias del hogar',
     description:
@@ -801,6 +806,7 @@ const Map<String, _ServiceDetail> _serviceCatalog =
   ),
   'limpieza': _ServiceDetail(
     id: 'limpieza',
+    providerId: 'sofia-torres',
     name: 'Limpieza premium',
     category: 'Hogar y oficina',
     description:
@@ -845,6 +851,7 @@ const Map<String, _ServiceDetail> _serviceCatalog =
   ),
   'electricista': _ServiceDetail(
     id: 'electricista',
+    providerId: 'sofia-morales',
     name: 'Electricista experto',
     category: 'Instalaciones y reparaciones',
     description:

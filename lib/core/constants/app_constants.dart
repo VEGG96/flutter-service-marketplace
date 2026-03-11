@@ -16,6 +16,7 @@ class AppRoutes {
   static const String services = '/services';
   static const String providerDashboard = '/provider-dashboard';
   static const String serviceDetail = '/services/detail';
+  static const String providerProfile = '/providers/profile';
   static const String booking = '/booking';
   static const String chat = '/chat';
   static const String profile = '/profile';

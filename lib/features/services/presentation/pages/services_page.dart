@@ -136,8 +136,9 @@ class _ServicesPageState extends State<ServicesPage> {
                                 flex: 5,
                                 child: _NearbyProsSection(
                                   columns: 1,
-                                  onViewProfile: () =>
-                                      context.go(AppRoutes.profile),
+                                  onViewProfile: (String id) => context.push(
+                                    '${AppRoutes.providerProfile}?id=$id',
+                                  ),
                                 ),
                               ),
                             ],
@@ -152,7 +153,9 @@ class _ServicesPageState extends State<ServicesPage> {
                           const SizedBox(height: 18),
                           _NearbyProsSection(
                             columns: isTablet ? 2 : 1,
-                            onViewProfile: () => context.go(AppRoutes.profile),
+                            onViewProfile: (String id) => context.push(
+                              '${AppRoutes.providerProfile}?id=$id',
+                            ),
                           ),
                         ],
                       ],
@@ -394,7 +397,7 @@ class _PopularServicesSection extends StatelessWidget {
 
 class _NearbyProsSection extends StatelessWidget {
   final int columns;
-  final VoidCallback onViewProfile;
+  final ValueChanged<String> onViewProfile;
 
   const _NearbyProsSection({
     required this.columns,
@@ -420,7 +423,10 @@ class _NearbyProsSection extends StatelessWidget {
           ),
           itemBuilder: (BuildContext context, int index) {
             final _Professional item = _nearbyPros[index];
-            return _ProfessionalCard(item: item, onViewProfile: onViewProfile);
+            return _ProfessionalCard(
+              item: item,
+              onViewProfile: () => onViewProfile(item.id),
+            );
           },
         ),
       ],
@@ -637,6 +643,7 @@ const List<_ServiceCategory> _popularServices = <_ServiceCategory>[
 
 const List<_Professional> _nearbyPros = <_Professional>[
   _Professional(
+    id: 'carlos-gomez',
     name: 'Carlos Gomez',
     category: 'Plomero',
     rating: 4.9,
@@ -644,6 +651,7 @@ const List<_Professional> _nearbyPros = <_Professional>[
     location: LatLng(25.6956, -100.3376),
   ),
   _Professional(
+    id: 'sofia-torres',
     name: 'Sofia Torres',
     category: 'Electricista',
     rating: 4.8,
@@ -669,6 +677,7 @@ class _ServiceCategory {
 }
 
 class _Professional {
+  final String id;
   final String name;
   final String category;
   final double rating;
@@ -676,6 +685,7 @@ class _Professional {
   final LatLng location;
 
   const _Professional({
+    required this.id,
     required this.name,
     required this.category,
     required this.rating,
