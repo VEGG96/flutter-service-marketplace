@@ -47,6 +47,9 @@ class FirestoreFields {
   static const String address = 'address';
   static const String bio = 'bio';
   static const String profileImageUrl = 'profileImageUrl';
+  static const String serviceArea = 'serviceArea';
+  static const String specialties = 'specialties';
+  static const String hourlyRate = 'hourlyRate';
   static const String createdAt = 'createdAt';
   static const String updatedAt = 'updatedAt';
   static const String userId = 'userId';

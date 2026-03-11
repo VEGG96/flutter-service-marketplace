@@ -10,6 +10,9 @@ class ProfileEntity extends Equatable {
   final String address;
   final String bio;
   final String profileImageUrl;
+  final String serviceArea;
+  final List<String> specialties;
+  final double hourlyRate;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
@@ -23,6 +26,9 @@ class ProfileEntity extends Equatable {
     required this.address,
     required this.bio,
     required this.profileImageUrl,
+    required this.serviceArea,
+    required this.specialties,
+    required this.hourlyRate,
     this.createdAt,
     this.updatedAt,
   });
@@ -38,6 +44,9 @@ class ProfileEntity extends Equatable {
       address: '',
       bio: '',
       profileImageUrl: '',
+      serviceArea: '',
+      specialties: const [],
+      hourlyRate: 0,
     );
   }
 
@@ -50,6 +59,9 @@ class ProfileEntity extends Equatable {
     String? address,
     String? bio,
     String? profileImageUrl,
+    String? serviceArea,
+    List<String>? specialties,
+    double? hourlyRate,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
@@ -63,6 +75,9 @@ class ProfileEntity extends Equatable {
       address: address ?? this.address,
       bio: bio ?? this.bio,
       profileImageUrl: profileImageUrl ?? this.profileImageUrl,
+      serviceArea: serviceArea ?? this.serviceArea,
+      specialties: specialties ?? this.specialties,
+      hourlyRate: hourlyRate ?? this.hourlyRate,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -90,6 +105,9 @@ class ProfileEntity extends Equatable {
     address,
     bio,
     profileImageUrl,
+    serviceArea,
+    specialties,
+    hourlyRate,
     createdAt,
     updatedAt,
   ];

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_event.dart';
+import 'provider_edit_profile_page.dart';
 
 class ProviderSettingsPage extends StatefulWidget {
   const ProviderSettingsPage({super.key});
@@ -69,7 +70,13 @@ class _ProviderSettingsPageState extends State<ProviderSettingsPage> {
                     leading: const Icon(Icons.person_outline_rounded),
                     title: const Text('Editar perfil'),
                     trailing: const Icon(Icons.chevron_right),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const ProviderEditProfilePage(),
+                        ),
+                      );
+                    },
                   ),
                   const Divider(height: 1),
                   ListTile(

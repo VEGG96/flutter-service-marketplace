@@ -7,6 +7,9 @@ class ProfileSaveInput extends Equatable {
   final String city;
   final String address;
   final String bio;
+  final String serviceArea;
+  final List<String> specialties;
+  final double hourlyRate;
 
   const ProfileSaveInput({
     required this.fullName,
@@ -15,6 +18,9 @@ class ProfileSaveInput extends Equatable {
     required this.city,
     required this.address,
     required this.bio,
+    required this.serviceArea,
+    required this.specialties,
+    required this.hourlyRate,
   });
 
   @override
@@ -25,6 +31,9 @@ class ProfileSaveInput extends Equatable {
     city,
     address,
     bio,
+    serviceArea,
+    specialties,
+    hourlyRate,
   ];
 }
 

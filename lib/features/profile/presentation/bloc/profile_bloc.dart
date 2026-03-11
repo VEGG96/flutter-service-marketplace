@@ -64,6 +64,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       city: event.input.city.trim(),
       address: event.input.address.trim(),
       bio: event.input.bio.trim(),
+      serviceArea: event.input.serviceArea.trim(),
+      specialties: event.input.specialties,
+      hourlyRate: event.input.hourlyRate,
     );
 
     emit(state.copyWith(isSaving: true, clearError: true, clearSuccess: true));

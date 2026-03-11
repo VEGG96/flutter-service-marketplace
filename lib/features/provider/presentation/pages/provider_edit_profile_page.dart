@@ -6,20 +6,19 @@ import '../../../../core/utils/validators.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/error_widget.dart';
 import '../../../../core/widgets/loading_widget.dart';
-import '../../domain/entities/profile_entity.dart';
-import '../bloc/profile_bloc.dart';
-import '../bloc/profile_event.dart';
-import '../bloc/profile_state.dart';
-import 'settings_page.dart';
+import '../../../profile/presentation/bloc/profile_bloc.dart';
+import '../../../profile/presentation/bloc/profile_event.dart';
+import '../../../profile/presentation/bloc/profile_state.dart';
+import '../../../profile/domain/entities/profile_entity.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class ProviderEditProfilePage extends StatefulWidget {
+  const ProviderEditProfilePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<ProviderEditProfilePage> createState() => _ProviderEditProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProviderEditProfilePageState extends State<ProviderEditProfilePage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _businessNameController = TextEditingController();
@@ -153,19 +152,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Mi perfil'),
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.settings_outlined),
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const SettingsPage(),
-                      ),
-                    );
-                  },
-                ),
-              ],
+              title: const Text('Editar perfil (Proveedor)'),
             ),
             body: SingleChildScrollView(
               padding: const EdgeInsets.all(16),
@@ -174,12 +161,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    _ProfileHeader(
-                      profile: profile,
-                      isUploadingImage: state.isUploadingImage,
-                      onUploadImage: () =>
-                          _profileBloc.add(ProfileImageUploadRequested()),
-                    ),
+                    _ProviderProfileHeader(profile: profile),
                     const SizedBox(height: 18),
                     _ReadOnlyInfoTile(label: 'Correo', value: profile.email),
                     const SizedBox(height: 12),
@@ -193,14 +175,22 @@ class _ProfilePageState extends State<ProfilePage> {
                         prefixIcon: Icon(Icons.person_outline_rounded),
                       ),
                     ),
-
+                    const SizedBox(height: 12),
+                    TextFormField(
+                      controller: _businessNameController,
+                      textInputAction: TextInputAction.next,
+                      decoration: const InputDecoration(
+                        labelText: 'Nombre del negocio',
+                        prefixIcon: Icon(Icons.business_outlined),
+                      ),
+                    ),
                     const SizedBox(height: 12),
                     TextFormField(
                       controller: _phoneController,
                       keyboardType: TextInputType.phone,
                       textInputAction: TextInputAction.next,
                       decoration: const InputDecoration(
-                        labelText: 'Telefono',
+                        labelText: 'Teléfono',
                         prefixIcon: Icon(Icons.phone_outlined),
                       ),
                     ),
@@ -209,7 +199,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       controller: _cityController,
                       textInputAction: TextInputAction.next,
                       decoration: const InputDecoration(
-                        labelText: 'Ciudad',
+                        labelText: 'Ciudad de operación',
                         prefixIcon: Icon(Icons.location_city_outlined),
                       ),
                     ),
@@ -218,7 +208,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       controller: _addressController,
                       textInputAction: TextInputAction.next,
                       decoration: const InputDecoration(
-                        labelText: 'Direccion',
+                        labelText: 'Dirección',
                         prefixIcon: Icon(Icons.pin_drop_outlined),
                       ),
                     ),
@@ -258,7 +248,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       maxLength: 250,
                       textAlignVertical: TextAlignVertical.top,
                       decoration: InputDecoration(
-                        labelText: 'Sobre mi',
+                        labelText: 'Sobre mis servicios',
                         alignLabelWithHint: true,
                         contentPadding: const EdgeInsets.fromLTRB(
                           0,
@@ -280,7 +270,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     const SizedBox(height: 20),
                     AppButton(
-                      label: 'Guardar perfil',
+                      label: 'Guardar cambios',
                       icon: Icons.save_outlined,
                       isLoading: state.isSaving,
                       onPressed: _saveProfile,
@@ -296,83 +286,72 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 }
 
-class _ProfileHeader extends StatelessWidget {
+class _ProviderProfileHeader extends StatelessWidget {
   final ProfileEntity profile;
-  final bool isUploadingImage;
-  final VoidCallback onUploadImage;
 
-  const _ProfileHeader({
-    required this.profile,
-    required this.isUploadingImage,
-    required this.onUploadImage,
-  });
+  const _ProviderProfileHeader({required this.profile});
 
   @override
   Widget build(BuildContext context) {
-    final bool hasImage = profile.profileImageUrl.trim().isNotEmpty;
-
-    return Column(
-      children: <Widget>[
-        Stack(
-          children: <Widget>[
-            CircleAvatar(
-              radius: 56,
-              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-              backgroundImage: hasImage
-                  ? NetworkImage(profile.profileImageUrl)
-                  : null,
-              child: hasImage
-                  ? null
-                  : Text(
-                      profile.initials,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w800,
-                        fontSize: 22,
-                      ),
-                    ),
-            ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: Material(
-                color: Theme.of(context).colorScheme.primary,
-                shape: const CircleBorder(),
-                child: InkWell(
-                  onTap: isUploadingImage ? null : onUploadImage,
-                  customBorder: const CircleBorder(),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: isUploadingImage
-                        ? const SizedBox(
-                            width: 16,
-                            height: 16,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: Colors.white,
-                            ),
-                          )
-                        : const Icon(
-                            Icons.photo_camera_outlined,
-                            color: Colors.white,
-                            size: 18,
-                          ),
-                  ),
-                ),
+    return Container(
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(18),
+        gradient: const LinearGradient(
+          colors: <Color>[Color(0xFF0F3A85), Color(0xFF2C66B8)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.18),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
+        ],
+      ),
+      child: Row(
+        children: <Widget>[
+          CircleAvatar(
+            radius: 28,
+            backgroundColor: Colors.white.withValues(alpha: 0.2),
+            child: Text(
+              profile.initials,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w800,
               ),
             ),
-          ],
-        ),
-        const SizedBox(height: 10),
-        Text(
-          profile.fullName.trim().isEmpty
-              ? 'Completa tu perfil'
-              : profile.fullName,
-          style: Theme.of(
-            context,
-          ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
-          textAlign: TextAlign.center,
-        ),
-      ],
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  profile.fullName,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  profile.businessName.isEmpty
+                      ? 'Proveedor'
+                      : profile.businessName,
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.85),
+                    fontSize: 13.5,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -385,33 +364,19 @@ class _ReadOnlyInfoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.black.withValues(alpha: 0.06)),
-      ),
-      child: Row(
-        children: <Widget>[
-          const Icon(Icons.verified_user_outlined),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(label, style: Theme.of(context).textTheme.labelMedium),
-                Text(
-                  value,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          label,
+          style: const TextStyle(fontSize: 12, color: Colors.grey),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          value,
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+        ),
+      ],
     );
   }
 }

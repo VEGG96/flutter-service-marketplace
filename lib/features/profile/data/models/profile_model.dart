@@ -14,6 +14,9 @@ class ProfileModel extends ProfileEntity {
     required super.address,
     required super.bio,
     required super.profileImageUrl,
+    required super.serviceArea,
+    required super.specialties,
+    required super.hourlyRate,
     super.createdAt,
     super.updatedAt,
   });
@@ -29,6 +32,9 @@ class ProfileModel extends ProfileEntity {
       address: '',
       bio: '',
       profileImageUrl: '',
+      serviceArea: '',
+      specialties: const [],
+      hourlyRate: 0,
     );
   }
 
@@ -43,6 +49,11 @@ class ProfileModel extends ProfileEntity {
       address: (data[FirestoreFields.address] as String?) ?? '',
       bio: (data[FirestoreFields.bio] as String?) ?? '',
       profileImageUrl: (data[FirestoreFields.profileImageUrl] as String?) ?? '',
+      serviceArea: (data[FirestoreFields.serviceArea] as String?) ?? '',
+      specialties: (data[FirestoreFields.specialties] as List<dynamic>?)
+              ?.cast<String>() ??
+          const [],
+      hourlyRate: (data[FirestoreFields.hourlyRate] as num?)?.toDouble() ?? 0,
       createdAt: _parseTimestamp(data[FirestoreFields.createdAt]),
       updatedAt: _parseTimestamp(data[FirestoreFields.updatedAt]),
     );
@@ -59,6 +70,9 @@ class ProfileModel extends ProfileEntity {
       address: profile.address,
       bio: profile.bio,
       profileImageUrl: profile.profileImageUrl,
+      serviceArea: profile.serviceArea,
+      specialties: profile.specialties,
+      hourlyRate: profile.hourlyRate,
       createdAt: profile.createdAt,
       updatedAt: profile.updatedAt,
     );
@@ -75,6 +89,9 @@ class ProfileModel extends ProfileEntity {
       FirestoreFields.address: address,
       FirestoreFields.bio: bio,
       FirestoreFields.profileImageUrl: profileImageUrl,
+      FirestoreFields.serviceArea: serviceArea,
+      FirestoreFields.specialties: specialties,
+      FirestoreFields.hourlyRate: hourlyRate,
       FirestoreFields.status: 'active',
     };
   }
