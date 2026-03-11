@@ -56,6 +56,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthError(_formatErrorMessage(e)));
       }
     });
+
+    on<DeleteAccountRequested>((event, emit) async {
+      emit(AuthSubmitting());
+      try {
+        await _authRepository.deleteAccount();
+        emit(Unauthenticated());
+      } catch (e) {
+        emit(AuthError(_formatErrorMessage(e)));
+      }
+    });
   }
 
   String _formatErrorMessage(Object error) {

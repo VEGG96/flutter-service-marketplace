@@ -10,6 +10,7 @@ import '../../domain/entities/profile_entity.dart';
 import '../bloc/profile_bloc.dart';
 import '../bloc/profile_event.dart';
 import '../bloc/profile_state.dart';
+import 'settings_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -135,7 +136,21 @@ class _ProfilePageState extends State<ProfilePage> {
           final ProfileEntity profile = state.profile!;
 
           return Scaffold(
-            appBar: AppBar(title: const Text('Mi perfil')),
+            appBar: AppBar(
+              title: const Text('Mi perfil'),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.settings_outlined),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const SettingsPage(),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
             body: SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: Form(

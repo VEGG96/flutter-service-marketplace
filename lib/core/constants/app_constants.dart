@@ -171,6 +171,8 @@ class FirebaseAuthErrorMessages {
   static const String tooManyRequests = 'Demasiados intentos. Intenta luego';
   static const String networkRequestFailed =
       ApiErrorMessages.noInternetConnection;
+  static const String requiresRecentLogin =
+      'Vuelve a iniciar sesion para eliminar la cuenta';
   static const String unknown = 'Error de autenticacion';
 
   static String fromCode(String code) {
@@ -195,6 +197,8 @@ class FirebaseAuthErrorMessages {
         return tooManyRequests;
       case 'network-request-failed':
         return networkRequestFailed;
+      case 'requires-recent-login':
+        return requiresRecentLogin;
       default:
         return unknown;
     }

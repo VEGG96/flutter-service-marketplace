@@ -30,3 +30,5 @@ class SignUpRequested extends AuthEvent {
 }
 
 class SignOutRequested extends AuthEvent {}
+
+class DeleteAccountRequested extends AuthEvent {}

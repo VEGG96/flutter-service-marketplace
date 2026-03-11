@@ -67,6 +67,29 @@ class FirebaseAuthRepository implements AuthRepository {
     }
   }
 
+  @override
+  Future<void> deleteAccount() async {
+    try {
+      final User? user = _firebaseAuth.currentUser;
+      if (user == null) {
+        throw Exception(ApiErrorMessages.unauthorized);
+      }
+
+      await _firebaseFirestore
+          .collection(FirestoreCollections.users)
+          .doc(user.uid)
+          .delete();
+      await user.delete();
+      await _firebaseAuth.signOut();
+    } on FirebaseAuthException catch (e) {
+      throw Exception(FirebaseAuthErrorMessages.fromCode(e.code));
+    } on FirebaseException catch (e) {
+      throw Exception(_mapFirestoreError(e));
+    } catch (_) {
+      throw Exception(ApiErrorMessages.unknown);
+    }
+  }
+
   Future<void> _saveUserDocument(User user) async {
     await _firebaseFirestore
         .collection(FirestoreCollections.users)
