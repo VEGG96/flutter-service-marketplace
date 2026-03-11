@@ -14,6 +14,7 @@ import '../../features/profile/presentation/pages/profile_page.dart';
 import '../../features/provider/presentation/pages/provider_dashboard_page.dart';
 import '../../features/provider/presentation/pages/provider_availability_page.dart';
 import '../../features/provider/presentation/pages/provider_profile_page.dart';
+import '../../features/provider/presentation/pages/provider_settings_page.dart';
 import '../../features/services/presentation/pages/service_detail_page.dart';
 import '../../features/services/presentation/pages/services_page.dart';
 import 'go_router_refresh_stream.dart';
@@ -101,6 +102,12 @@ GoRouter createRouter(AuthBloc authBloc) {
         name: 'provider-availability',
         builder: (BuildContext context, GoRouterState state) =>
             const ProviderAvailabilityPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.providerSettings,
+        name: 'provider-settings',
+        builder: (BuildContext context, GoRouterState state) =>
+            const ProviderSettingsPage(),
       ),
       GoRoute(
         path: AppRoutes.serviceDetail,

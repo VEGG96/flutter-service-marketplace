@@ -23,13 +23,13 @@ class ProviderDashboardPage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              // TODO: navegar a settings más adelante
-            },
-          )
-        ],
-      ),
+          icon: const Icon(Icons.settings),
+          onPressed: () {
+            context.go(AppRoutes.providerSettings);
+          },
+        )
+      ],
+    ),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(16),
