@@ -367,7 +367,7 @@ class _PopularServicesSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const _SectionTitle(title: 'Populare services'),
+        const _SectionTitle(title: 'Servicios Populares'),
         const SizedBox(height: 10),
         GridView.builder(
           shrinkWrap: true,
