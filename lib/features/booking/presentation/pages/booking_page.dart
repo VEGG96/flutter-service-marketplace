@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_constants.dart';
+import '../../../../core/constants/app_strings.dart';
 
 class BookingPage extends StatelessWidget {
   const BookingPage({super.key});
@@ -10,7 +11,7 @@ class BookingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Reservas'),
+        title: const Text(AppStrings.bookings),
         actions: <Widget>[
           IconButton(
             onPressed: () => context.go(AppRoutes.profile),
@@ -23,21 +24,21 @@ class BookingPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            const Text('Pantalla de reservas'),
+            const Text(AppStrings.bookingsScreen),
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () => context.go(AppRoutes.chat),
-              child: const Text('Contactar por chat'),
+              child: const Text(AppStrings.contactByChat),
             ),
             const SizedBox(height: 12),
             OutlinedButton(
               onPressed: () => context.go(AppRoutes.services),
-              child: const Text('Volver a servicios'),
+              child: const Text(AppStrings.backToServices),
             ),
             const SizedBox(height: 12),
             OutlinedButton(
               onPressed: () => context.go(AppRoutes.profile),
-              child: const Text('Ir a mi perfil'),
+              child: const Text(AppStrings.goToMyProfile),
             ),
           ],
         ),

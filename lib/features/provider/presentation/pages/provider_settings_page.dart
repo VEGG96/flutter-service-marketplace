@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/constants/app_strings.dart';
+import '../../../../core/theme/app_text_styles.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_event.dart';
 import 'provider_edit_profile_page.dart';
@@ -19,25 +21,25 @@ class _ProviderSettingsPageState extends State<ProviderSettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ajustes'),
+        title: const Text(AppStrings.providerSettings),
       ),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.symmetric(vertical: 16),
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                'Preferencias',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                AppStrings.notifications,
+                style: AppTextStyles.sectionTitle(context),
               ),
             ),
             const SizedBox(height: 12),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: SwitchListTile(
-                title: const Text('Recibir notificaciones'),
-                subtitle: const Text('Avisos de mensajes y solicitudes nuevas'),
+                title: const Text(AppStrings.receiveNotifications),
+                subtitle: const Text(AppStrings.notificationsSubtitle),
                 value: _notificationsEnabled,
                 onChanged: (bool value) {
                   setState(() {
@@ -47,11 +49,11 @@ class _ProviderSettingsPageState extends State<ProviderSettingsPage> {
               ),
             ),
             const SizedBox(height: 24),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                'Cuenta',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                AppStrings.settings,
+                style: AppTextStyles.sectionTitle(context),
               ),
             ),
             const SizedBox(height: 12),
@@ -61,7 +63,7 @@ class _ProviderSettingsPageState extends State<ProviderSettingsPage> {
                 children: <Widget>[
                   ListTile(
                     leading: const Icon(Icons.lock_outline_rounded),
-                    title: const Text('Cambiar contraseña'),
+                    title: const Text(AppStrings.changePassword),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {},
                   ),
@@ -81,7 +83,7 @@ class _ProviderSettingsPageState extends State<ProviderSettingsPage> {
                   const Divider(height: 1),
                   ListTile(
                     leading: const Icon(Icons.logout),
-                    title: const Text('Cerrar sesión'),
+                    title: const Text(AppStrings.logout),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
                       context.read<AuthBloc>().add(SignOutRequested());

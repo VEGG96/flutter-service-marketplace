@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/constants/app_strings.dart';
+import '../../../../core/theme/app_text_styles.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_event.dart';
 
@@ -22,34 +24,34 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Ajustes')),
+      appBar: AppBar(title: const Text(AppStrings.settings)),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.symmetric(vertical: 16),
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                'Preferencias',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                AppStrings.notifications,
+                style: AppTextStyles.sectionTitle(context),
               ),
             ),
             const SizedBox(height: 12),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: SwitchListTile(
-                title: const Text('Notificaciones push'),
-                subtitle: const Text('Avisos de mensajes y solicitudes nuevas'),
+                title: const Text(AppStrings.receiveNotifications),
+                subtitle: const Text(AppStrings.notificationsSubtitle),
                 value: _notificationsEnabled,
                 onChanged: _setNotificationsEnabled,
               ),
             ),
             const SizedBox(height: 24),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                'Cuenta',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                AppStrings.settings,
+                style: AppTextStyles.sectionTitle(context),
               ),
             ),
             const SizedBox(height: 12),
@@ -59,7 +61,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 children: <Widget>[
                   ListTile(
                     leading: const Icon(Icons.lock_outline_rounded),
-                    title: const Text('Cambiar contraseña'),
+                    title: const Text(AppStrings.changePassword),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {},
                   ),
@@ -67,7 +69,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   const Divider(height: 1),
                   ListTile(
                     leading: const Icon(Icons.logout),
-                    title: const Text('Cerrar sesión'),
+                    title: const Text(AppStrings.logout),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
                       context.read<AuthBloc>().add(SignOutRequested());
@@ -80,7 +82,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       color: Theme.of(context).colorScheme.error,
                     ),
                     title: Text(
-                      'Eliminar cuenta',
+                      AppStrings.deleteAccount,
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.error,
                       ),
@@ -90,7 +92,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       final bool? confirmed = await showDialog<bool>(
                         context: context,
                         builder: (dialogContext) => AlertDialog(
-                          title: const Text('Eliminar cuenta'),
+                          title: const Text(AppStrings.deleteAccount),
                           content: const Text(
                             'Esta acción es permanente. ¿Deseas continuar?',
                           ),
@@ -98,13 +100,13 @@ class _SettingsPageState extends State<SettingsPage> {
                             TextButton(
                               onPressed: () =>
                                   Navigator.of(dialogContext).pop(false),
-                              child: const Text('Cancelar'),
+                              child: const Text(AppStrings.cancel),
                             ),
                             TextButton(
                               onPressed: () =>
                                   Navigator.of(dialogContext).pop(true),
                               child: Text(
-                                'Eliminar',
+                                AppStrings.delete,
                                 style: TextStyle(
                                   color: Theme.of(context).colorScheme.error,
                                 ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_constants.dart';
+import '../../../../core/constants/app_strings.dart';
 
 class ServiceDetailPage extends StatelessWidget {
   final String serviceId;
@@ -31,22 +32,22 @@ class ServiceDetailPage extends StatelessWidget {
                 _HeroCard(service: service),
                 const SizedBox(height: 16),
                 _SectionCard(
-                  title: 'Resumen',
+                  title: AppStrings.summary,
                   child: _SummaryBlock(service: service),
                 ),
                 const SizedBox(height: 16),
                 _SectionCard(
-                  title: 'Que incluye',
+                  title: AppStrings.includes,
                   child: _BulletedList(items: service.inclusions),
                 ),
                 const SizedBox(height: 16),
                 _SectionCard(
-                  title: 'Sobre el profesional',
+                  title: AppStrings.aboutProfessional,
                   child: _ProviderCard(service: service),
                 ),
                 const SizedBox(height: 16),
                 _SectionCard(
-                  title: 'Resenas recientes',
+                  title: AppStrings.recentReviews,
                   child: _ReviewsList(reviews: service.reviews),
                 ),
                 const SizedBox(height: 16),
@@ -168,11 +169,11 @@ class _HeroCard extends StatelessWidget {
                   ),
                   _Pill(
                     icon: Icons.schedule_rounded,
-                    label: 'Respuesta ${service.responseTime}',
+                    label: '${AppStrings.responseLabel} ${service.responseTime}',
                   ),
                   const _Pill(
                     icon: Icons.verified_rounded,
-                    label: 'Garantia 30 dias',
+                    label: AppStrings.guarantee,
                   ),
                 ],
               ),
@@ -217,11 +218,11 @@ class _SummaryBlock extends StatelessWidget {
             ),
             const _InfoChip(
               icon: Icons.shield_rounded,
-              label: 'Pago protegido',
+              label: AppStrings.protectedPay,
             ),
             const _InfoChip(
               icon: Icons.payment_rounded,
-              label: 'Pago seguro',
+              label: AppStrings.securePay,
             ),
           ],
         ),
@@ -280,7 +281,7 @@ class _ProviderCard extends StatelessWidget {
               onPressed: () => context.push(
                 '${AppRoutes.providerProfile}?id=${service.providerId}',
               ),
-              child: const Text('Ver perfil'),
+              child: const Text(AppStrings.viewProfile),
             ),
           ],
         ),
@@ -299,15 +300,15 @@ class _ProviderCard extends StatelessWidget {
           children: <Widget>[
             _InfoChip(
               icon: Icons.work_outline_rounded,
-              label: '${service.completedJobs}+ trabajos',
+              label: '${service.completedJobs}+ ${AppStrings.jobs}',
             ),
             _InfoChip(
               icon: Icons.schedule_rounded,
-              label: 'Responde ${service.responseTime}',
+              label: '${AppStrings.responds} ${service.responseTime}',
             ),
             const _InfoChip(
               icon: Icons.verified_user_rounded,
-              label: 'Profesional verificado',
+              label: AppStrings.verifiedProfessional,
             ),
           ],
         ),
@@ -424,7 +425,7 @@ class _BookingSummary extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const Text(
-            'Precio estimado',
+            AppStrings.estimatedPrice,
             style: TextStyle(
               color: Color(0xFF4B4B4B),
               fontWeight: FontWeight.w600,
@@ -441,16 +442,16 @@ class _BookingSummary extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           _PriceRow(
-            label: 'Servicio base',
+            label: AppStrings.baseService,
             value: _formatCurrency(service.price),
           ),
           const _PriceRow(
-            label: 'Tarifa plataforma',
+            label: AppStrings.platformFee,
             value: '\$35',
           ),
           const Divider(height: 24),
           _PriceRow(
-            label: 'Total',
+            label: AppStrings.total,
             value: _formatCurrency(total),
             emphasize: true,
           ),
@@ -474,7 +475,7 @@ class _BookingSummary extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           const Text(
-            'Cancelacion gratis hasta 2 horas antes.',
+            AppStrings.cancellationPolicy,
             style: TextStyle(
               color: Color(0xFF7A7A7A),
               fontSize: 12.5,

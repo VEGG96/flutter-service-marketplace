@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_constants.dart';
+import '../../../../core/constants/app_strings.dart';
 import '../../../../core/widgets/content_skeletons.dart';
 import '../../../../core/widgets/empty_state_widget.dart';
 import '../../../../core/widgets/request_state_widget.dart';
@@ -58,12 +59,12 @@ class _ServicesPageState extends State<ServicesPage> {
       backgroundColor: const Color(0xFFF4F6F8),
       appBar: AppBar(
         backgroundColor: const Color(0xFF11408B),
-        title: const Row(
+        title: Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Icon(Icons.build_rounded, size: 22),
-            SizedBox(width: 8),
-            Text('QuickFix'),
+            const Icon(Icons.build_rounded, size: 22),
+            const SizedBox(width: 8),
+            Text(AppStrings.appBrand),
           ],
         ),
         actions: <Widget>[
@@ -80,9 +81,9 @@ class _ServicesPageState extends State<ServicesPage> {
         onRetry: widget.onRetry,
         loading: const ServicesScreenSkeleton(),
         empty: EmptyStateWidget(
-          title: 'No hay servicios disponibles',
-          message: 'Intenta ajustar la busqueda o recargar la pantalla.',
-          actionLabel: 'Recargar',
+          title: AppStrings.noServicesAvailable,
+          message: AppStrings.adjustSearchOrReload,
+          actionLabel: AppStrings.reload,
           onAction: widget.onRetry,
           icon: Icons.location_off_outlined,
         ),

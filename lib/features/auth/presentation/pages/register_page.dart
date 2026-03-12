@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_constants.dart';
+import '../../../../core/constants/app_strings.dart';
 import '../../../../core/utils/validators.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/error_widget.dart';
@@ -63,7 +64,7 @@ class _RegisterPageState extends State<RegisterPage> {
         }
       },
       child: Scaffold(
-        appBar: AppBar(title: const Text('Crear cuenta')),
+        appBar: AppBar(title: const Text(AppStrings.createAccount)),
         body: SafeArea(
           child: Center(
             child: SingleChildScrollView(
@@ -87,7 +88,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'Crea tu cuenta para comenzar',
+                            AppStrings.createAccountSubtitle,
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
@@ -100,7 +101,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 AutovalidateMode.onUserInteraction,
                             validator: Validators.email,
                             decoration: const InputDecoration(
-                              labelText: 'Correo',
+                              labelText: AppStrings.email,
                               prefixIcon: Icon(Icons.email_outlined),
                             ),
                           ),
@@ -113,7 +114,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 AutovalidateMode.onUserInteraction,
                             validator: Validators.password,
                             decoration: InputDecoration(
-                              labelText: 'Contrasena',
+                              labelText: AppStrings.password,
                               prefixIcon: const Icon(Icons.lock_outline),
                               suffixIcon: IconButton(
                                 onPressed: () {
@@ -144,7 +145,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             },
                             onFieldSubmitted: (_) => _onSignUpPressed(),
                             decoration: InputDecoration(
-                              labelText: 'Confirmar contrasena',
+                              labelText: AppStrings.confirmPassword,
                               prefixIcon: const Icon(Icons.lock_outline),
                               suffixIcon: IconButton(
                                 onPressed: () {
@@ -163,7 +164,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                           const SizedBox(height: 20),
                           AppButton(
-                            label: 'Crear cuenta',
+                            label: AppStrings.createAccount,
                             icon: Icons.person_add_alt_1_rounded,
                             isLoading: isLoading,
                             onPressed: _onSignUpPressed,
@@ -173,7 +174,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             ErrorBanner(message: state.message),
                           const SizedBox(height: 14),
                           AppOutlinedButton(
-                            label: 'Ya tengo cuenta',
+                            label: AppStrings.alreadyHaveAccount,
                             icon: Icons.login_rounded,
                             onPressed: () => context.go(AppRoutes.login),
                           ),

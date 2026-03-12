@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_constants.dart';
+import '../../../../core/constants/app_strings.dart';
 
 class ProviderProfilePage extends StatelessWidget {
   final String providerId;
@@ -452,7 +453,7 @@ class _ContactCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const Text(
-            'Disponibilidad',
+            AppStrings.availability,
             style: TextStyle(
               color: Color(0xFF4B4B4B),
               fontWeight: FontWeight.w600,
@@ -468,8 +469,8 @@ class _ContactCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          _InfoRow(label: 'Tiempo respuesta', value: provider.responseTime),
-          _InfoRow(label: 'Promedio tarifa', value: provider.averagePrice),
+          _InfoRow(label: AppStrings.responseTime, value: provider.responseTime),
+          _InfoRow(label: AppStrings.averageRate, value: provider.averagePrice),
           const Divider(height: 24),
           SizedBox(
             width: double.infinity,
@@ -483,7 +484,7 @@ class _ContactCard extends StatelessWidget {
               ),
               onPressed: onBook,
               child: const Text(
-                'Agendar ahora',
+                AppStrings.bookNow,
                 style: TextStyle(fontWeight: FontWeight.w700),
               ),
             ),
@@ -494,7 +495,7 @@ class _ContactCard extends StatelessWidget {
             height: 44,
             child: OutlinedButton(
               onPressed: onMessage,
-              child: const Text('Enviar mensaje'),
+              child: const Text(AppStrings.sendMessage),
             ),
           ),
         ],

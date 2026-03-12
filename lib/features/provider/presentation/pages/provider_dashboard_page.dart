@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_constants.dart';
+import '../../../../core/constants/app_strings.dart';
 
 class ProviderDashboardPage extends StatelessWidget {
   const ProviderDashboardPage({super.key});
@@ -12,11 +13,11 @@ class ProviderDashboardPage extends StatelessWidget {
       appBar: AppBar(
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            Text('Hola, Emmanuel 👋'),
-            SizedBox(height: 2),
-            Text(
-              'Activo',
+          children: [
+            Text('${AppStrings.greetingHello}, Emmanuel 👋'),
+            const SizedBox(height: 2),
+            const Text(
+              AppStrings.statusActive,
               style: TextStyle(fontSize: 12, color: Colors.greenAccent),
             ),
           ],
@@ -63,7 +64,7 @@ class ProviderDashboardPage extends StatelessWidget {
                 children: const [
                   Icon(Icons.attach_money, size: 28, color: Colors.green),
                   SizedBox(height: 8),
-                  Text('Ganancias (Semana)', style: TextStyle(fontSize: 12)),
+                  Text(AppStrings.earningsWeekly, style: TextStyle(fontSize: 12)),
                   SizedBox(height: 4),
                   Text('3,250 MXN', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 ],
@@ -83,11 +84,11 @@ class ProviderDashboardPage extends StatelessWidget {
                 children: const [
                   Icon(Icons.star, size: 28, color: Colors.amber),
                   SizedBox(height: 8),
-                  Text('Calificación', style: TextStyle(fontSize: 12)),
+                  Text(AppStrings.rating, style: TextStyle(fontSize: 12)),
                   SizedBox(height: 4),
                   Text('4.8', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   SizedBox(height: 2),
-                  Text('50 reseñas', style: TextStyle(fontSize: 10, color: Colors.grey)),
+                  Text('50 ${AppStrings.reviews}', style: TextStyle(fontSize: 10, color: Colors.grey)),
                 ],
               ),
             ),
@@ -105,7 +106,7 @@ class ProviderDashboardPage extends StatelessWidget {
                 children: const [
                   Icon(Icons.check_circle, size: 28, color: Colors.blue),
                   SizedBox(height: 8),
-                  Text('Completados', style: TextStyle(fontSize: 12)),
+                  Text(AppStrings.completed, style: TextStyle(fontSize: 12)),
                   SizedBox(height: 4),
                   Text('12', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 ],
@@ -126,7 +127,7 @@ class ProviderDashboardPage extends StatelessWidget {
             context.go(AppRoutes.providerAvailability);
           },
           icon: const Icon(Icons.calendar_today),
-          label: const Text('Configurar Disponibilidad'),
+          label: const Text(AppStrings.configureAvailability),
         ),
         const SizedBox(height: 12),
         TextButton.icon(
@@ -136,7 +137,7 @@ class ProviderDashboardPage extends StatelessWidget {
             context.go('${AppRoutes.providerProfile}?id=carlos-gomez');
           },
           icon: const Icon(Icons.person),
-          label: const Text('Ver cómo me ven los clientes'),
+          label: const Text(AppStrings.viewHowCustomersSeeMe),
         ),
       ],
     );
@@ -146,7 +147,7 @@ class ProviderDashboardPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Nuevas Solicitudes (2)', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        const Text('${AppStrings.newRequests} (2)', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         const SizedBox(height: 12),
         _requestCard(
           servicio: 'Fuga de agua en lavabo',
@@ -181,11 +182,11 @@ class ProviderDashboardPage extends StatelessWidget {
           children: [
             Text(servicio, style: const TextStyle(fontWeight: FontWeight.bold)),
             const SizedBox(height: 4),
-            Text('Cliente: $cliente', style: const TextStyle(fontSize: 12)),
+            Text('${AppStrings.clientLabel}: $cliente', style: const TextStyle(fontSize: 12)),
             const SizedBox(height: 2),
-            Text('Horario: $horario', style: const TextStyle(fontSize: 12)),
+            Text('${AppStrings.scheduleLabel}: $horario', style: const TextStyle(fontSize: 12)),
             const SizedBox(height: 2),
-            Text('Dirección: $direccion', style: const TextStyle(fontSize: 12)),
+            Text('${AppStrings.addressLabel}: $direccion', style: const TextStyle(fontSize: 12)),
             const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -193,12 +194,12 @@ class ProviderDashboardPage extends StatelessWidget {
                 TextButton(
                   onPressed: () {},
                   style: TextButton.styleFrom(foregroundColor: Colors.red),
-                  child: const Text('Rechazar'),
+                  child: const Text(AppStrings.reject),
                 ),
                 const SizedBox(width: 8),
                 ElevatedButton(
                   onPressed: () {},
-                  child: const Text('Aceptar'),
+                  child: const Text(AppStrings.accept),
                 ),
               ],
             ),
@@ -212,7 +213,7 @@ class ProviderDashboardPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Agenda de Hoy', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        const Text(AppStrings.todayAgenda, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         const SizedBox(height: 12),
         Card(
           elevation: 2,
@@ -226,13 +227,13 @@ class ProviderDashboardPage extends StatelessWidget {
                   children: const [
                     Icon(Icons.check_circle, color: Colors.green, size: 16),
                     SizedBox(width: 4),
-                    Text('Confirmado', style: TextStyle(fontSize: 12, color: Colors.green)),
+                    Text(AppStrings.confirmed, style: TextStyle(fontSize: 12, color: Colors.green)),
                   ],
                 ),
                 const SizedBox(height: 4),
                 const Text('Mantenimiento de Minisplit', style: TextStyle(fontWeight: FontWeight.bold)),
                 const SizedBox(height: 2),
-                const Text('Cliente: Carlos G.', style: TextStyle(fontSize: 12)),
+                const Text('${AppStrings.clientLabel}: Carlos G.', style: TextStyle(fontSize: 12)),
                 const SizedBox(height: 2),
                 const Text('12:00 PM - 02:00 PM', style: TextStyle(fontSize: 12)),
                 const SizedBox(height: 8),
@@ -240,7 +241,7 @@ class ProviderDashboardPage extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: TextButton(
                     onPressed: () {},
-                    child: const Text('Ver Detalles'),
+                    child: const Text(AppStrings.viewDetails),
                   ),
                 ),
               ],
