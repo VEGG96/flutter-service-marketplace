@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_service_marketplace/l10n/l10n_extension.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_constants.dart';
-import '../../../../core/constants/app_strings.dart';
 import '../../../../core/utils/validators.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/error_widget.dart';
@@ -64,7 +64,7 @@ class _RegisterPageState extends State<RegisterPage> {
         }
       },
       child: Scaffold(
-        appBar: AppBar(title: const Text(AppStrings.createAccount)),
+        appBar: AppBar(title: Text(context.l10n.createAccount)),
         body: SafeArea(
           child: Center(
             child: SingleChildScrollView(
@@ -88,7 +88,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            AppStrings.createAccountSubtitle,
+                            context.l10n.createAccountSubtitle,
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
@@ -100,8 +100,8 @@ class _RegisterPageState extends State<RegisterPage> {
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
                             validator: Validators.email,
-                            decoration: const InputDecoration(
-                              labelText: AppStrings.email,
+                            decoration: InputDecoration(
+                              labelText: context.l10n.email,
                               prefixIcon: Icon(Icons.email_outlined),
                             ),
                           ),
@@ -114,7 +114,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 AutovalidateMode.onUserInteraction,
                             validator: Validators.password,
                             decoration: InputDecoration(
-                              labelText: AppStrings.password,
+                              labelText: context.l10n.password,
                               prefixIcon: const Icon(Icons.lock_outline),
                               suffixIcon: IconButton(
                                 onPressed: () {
@@ -145,7 +145,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             },
                             onFieldSubmitted: (_) => _onSignUpPressed(),
                             decoration: InputDecoration(
-                              labelText: AppStrings.confirmPassword,
+                              labelText: context.l10n.confirmPassword,
                               prefixIcon: const Icon(Icons.lock_outline),
                               suffixIcon: IconButton(
                                 onPressed: () {
@@ -164,7 +164,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                           const SizedBox(height: 20),
                           AppButton(
-                            label: AppStrings.createAccount,
+                            label: context.l10n.createAccount,
                             icon: Icons.person_add_alt_1_rounded,
                             isLoading: isLoading,
                             onPressed: _onSignUpPressed,
@@ -174,7 +174,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             ErrorBanner(message: state.message),
                           const SizedBox(height: 14),
                           AppOutlinedButton(
-                            label: AppStrings.alreadyHaveAccount,
+                            label: context.l10n.alreadyHaveAccount,
                             icon: Icons.login_rounded,
                             onPressed: () => context.go(AppRoutes.login),
                           ),

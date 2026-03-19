@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_service_marketplace/l10n/l10n_extension.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_constants.dart';
-import '../../../../core/constants/app_strings.dart';
 
 class BookingPage extends StatelessWidget {
   const BookingPage({super.key});
@@ -11,7 +11,7 @@ class BookingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(AppStrings.bookings),
+        title: Text(context.l10n.bookings),
         actions: <Widget>[
           IconButton(
             onPressed: () => context.go(AppRoutes.profile),
@@ -24,21 +24,21 @@ class BookingPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            const Text(AppStrings.bookingsScreen),
+            Text(context.l10n.bookingsScreen),
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () => context.go(AppRoutes.chat),
-              child: const Text(AppStrings.contactByChat),
+              child: Text(context.l10n.contactByChat),
             ),
             const SizedBox(height: 12),
             OutlinedButton(
               onPressed: () => context.go(AppRoutes.services),
-              child: const Text(AppStrings.backToServices),
+              child: Text(context.l10n.backToServices),
             ),
             const SizedBox(height: 12),
             OutlinedButton(
               onPressed: () => context.go(AppRoutes.profile),
-              child: const Text(AppStrings.goToMyProfile),
+              child: Text(context.l10n.goToMyProfile),
             ),
           ],
         ),

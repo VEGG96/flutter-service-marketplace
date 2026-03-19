@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_service_marketplace/l10n/l10n_extension.dart';
 
-import '../../../../core/constants/app_strings.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_event.dart';
@@ -20,9 +20,7 @@ class _ProviderSettingsPageState extends State<ProviderSettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(AppStrings.providerSettings),
-      ),
+      appBar: AppBar(title: Text(context.l10n.providerSettings)),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.symmetric(vertical: 16),
@@ -30,7 +28,7 @@ class _ProviderSettingsPageState extends State<ProviderSettingsPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                AppStrings.notifications,
+                context.l10n.notifications,
                 style: AppTextStyles.sectionTitle(context),
               ),
             ),
@@ -38,8 +36,8 @@ class _ProviderSettingsPageState extends State<ProviderSettingsPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: SwitchListTile(
-                title: const Text(AppStrings.receiveNotifications),
-                subtitle: const Text(AppStrings.notificationsSubtitle),
+                title: Text(context.l10n.receiveNotifications),
+                subtitle: Text(context.l10n.notificationsSubtitle),
                 value: _notificationsEnabled,
                 onChanged: (bool value) {
                   setState(() {
@@ -52,7 +50,7 @@ class _ProviderSettingsPageState extends State<ProviderSettingsPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                AppStrings.settings,
+                context.l10n.settings,
                 style: AppTextStyles.sectionTitle(context),
               ),
             ),
@@ -63,14 +61,14 @@ class _ProviderSettingsPageState extends State<ProviderSettingsPage> {
                 children: <Widget>[
                   ListTile(
                     leading: const Icon(Icons.lock_outline_rounded),
-                    title: const Text(AppStrings.changePassword),
+                    title: Text(context.l10n.changePassword),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {},
                   ),
                   const Divider(height: 1),
                   ListTile(
                     leading: const Icon(Icons.person_outline_rounded),
-                    title: const Text('Editar perfil'),
+                    title: Text(context.l10n.editProfile),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
                       Navigator.of(context).push(
@@ -83,7 +81,7 @@ class _ProviderSettingsPageState extends State<ProviderSettingsPage> {
                   const Divider(height: 1),
                   ListTile(
                     leading: const Icon(Icons.logout),
-                    title: const Text(AppStrings.logout),
+                    title: Text(context.l10n.logout),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
                       context.read<AuthBloc>().add(SignOutRequested());

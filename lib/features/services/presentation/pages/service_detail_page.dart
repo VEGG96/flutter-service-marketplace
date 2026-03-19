@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_service_marketplace/l10n/l10n_extension.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../core/constants/app_constants.dart';
-import '../../../../core/constants/app_strings.dart';
 
 class ServiceDetailPage extends StatelessWidget {
   final String serviceId;
@@ -32,22 +31,22 @@ class ServiceDetailPage extends StatelessWidget {
                 _HeroCard(service: service),
                 const SizedBox(height: 16),
                 _SectionCard(
-                  title: AppStrings.summary,
+                  title: context.l10n.summary,
                   child: _SummaryBlock(service: service),
                 ),
                 const SizedBox(height: 16),
                 _SectionCard(
-                  title: AppStrings.includes,
+                  title: context.l10n.includes,
                   child: _BulletedList(items: service.inclusions),
                 ),
                 const SizedBox(height: 16),
                 _SectionCard(
-                  title: AppStrings.aboutProfessional,
+                  title: context.l10n.aboutProfessional,
                   child: _ProviderCard(service: service),
                 ),
                 const SizedBox(height: 16),
                 _SectionCard(
-                  title: AppStrings.recentReviews,
+                  title: context.l10n.recentReviews,
                   child: _ReviewsList(reviews: service.reviews),
                 ),
                 const SizedBox(height: 16),
@@ -110,7 +109,7 @@ class _HeroCard extends StatelessWidget {
         ),
         boxShadow: <BoxShadow>[
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.18),
+            color: Colors.black.withOpacity(0.18),
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),
@@ -123,7 +122,7 @@ class _HeroCard extends StatelessWidget {
             top: -60,
             child: _GlowCircle(
               diameter: 160,
-              color: Colors.white.withValues(alpha: 0.08),
+              color: Colors.white.withOpacity(0.08),
             ),
           ),
           Positioned(
@@ -131,7 +130,7 @@ class _HeroCard extends StatelessWidget {
             bottom: -30,
             child: _GlowCircle(
               diameter: 120,
-              color: Colors.white.withValues(alpha: 0.08),
+              color: Colors.white.withOpacity(0.08),
             ),
           ),
           Column(
@@ -152,7 +151,7 @@ class _HeroCard extends StatelessWidget {
               Text(
                 service.category,
                 style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.85),
+                  color: Colors.white.withOpacity(0.85),
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
@@ -169,11 +168,12 @@ class _HeroCard extends StatelessWidget {
                   ),
                   _Pill(
                     icon: Icons.schedule_rounded,
-                    label: '${AppStrings.responseLabel} ${service.responseTime}',
+                    label:
+                        '${context.l10n.responseLabel} ${service.responseTime}',
                   ),
-                  const _Pill(
+                  _Pill(
                     icon: Icons.verified_rounded,
-                    label: AppStrings.guarantee,
+                    label: context.l10n.guarantee,
                   ),
                 ],
               ),
@@ -208,21 +208,15 @@ class _SummaryBlock extends StatelessWidget {
           spacing: 8,
           runSpacing: 8,
           children: <Widget>[
+            _InfoChip(icon: Icons.timer_rounded, label: service.duration),
+            _InfoChip(icon: Icons.place_rounded, label: service.location),
             _InfoChip(
-              icon: Icons.timer_rounded,
-              label: service.duration,
-            ),
-            _InfoChip(
-              icon: Icons.place_rounded,
-              label: service.location,
-            ),
-            const _InfoChip(
               icon: Icons.shield_rounded,
-              label: AppStrings.protectedPay,
+              label: context.l10n.protectedPay,
             ),
-            const _InfoChip(
+            _InfoChip(
               icon: Icons.payment_rounded,
-              label: AppStrings.securePay,
+              label: context.l10n.securePay,
             ),
           ],
         ),
@@ -281,17 +275,14 @@ class _ProviderCard extends StatelessWidget {
               onPressed: () => context.push(
                 '${AppRoutes.providerProfile}?id=${service.providerId}',
               ),
-              child: const Text(AppStrings.viewProfile),
+              child: Text(context.l10n.viewProfile),
             ),
           ],
         ),
         const SizedBox(height: 12),
         Text(
           service.providerBio,
-          style: const TextStyle(
-            color: Color(0xFF2B2B2B),
-            height: 1.5,
-          ),
+          style: const TextStyle(color: Color(0xFF2B2B2B), height: 1.5),
         ),
         const SizedBox(height: 12),
         Wrap(
@@ -300,15 +291,15 @@ class _ProviderCard extends StatelessWidget {
           children: <Widget>[
             _InfoChip(
               icon: Icons.work_outline_rounded,
-              label: '${service.completedJobs}+ ${AppStrings.jobs}',
+              label: '${service.completedJobs}+ ${context.l10n.jobs}',
             ),
             _InfoChip(
               icon: Icons.schedule_rounded,
-              label: '${AppStrings.responds} ${service.responseTime}',
+              label: '${context.l10n.responds} ${service.responseTime}',
             ),
-            const _InfoChip(
+            _InfoChip(
               icon: Icons.verified_user_rounded,
-              label: AppStrings.verifiedProfessional,
+              label: context.l10n.verifiedProfessional,
             ),
           ],
         ),
@@ -384,18 +375,12 @@ class _ReviewTile extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             review.comment,
-            style: const TextStyle(
-              color: Color(0xFF2B2B2B),
-              height: 1.5,
-            ),
+            style: const TextStyle(color: Color(0xFF2B2B2B), height: 1.5),
           ),
           const SizedBox(height: 8),
           Text(
             review.dateLabel,
-            style: const TextStyle(
-              color: Color(0xFF7A7A7A),
-              fontSize: 12.5,
-            ),
+            style: const TextStyle(color: Color(0xFF7A7A7A), fontSize: 12.5),
           ),
         ],
       ),
@@ -424,9 +409,9 @@ class _BookingSummary extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            AppStrings.estimatedPrice,
-            style: TextStyle(
+          Text(
+            context.l10n.estimatedPrice,
+            style: const TextStyle(
               color: Color(0xFF4B4B4B),
               fontWeight: FontWeight.w600,
             ),
@@ -442,16 +427,13 @@ class _BookingSummary extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           _PriceRow(
-            label: AppStrings.baseService,
+            label: context.l10n.baseService,
             value: _formatCurrency(service.price),
           ),
-          const _PriceRow(
-            label: AppStrings.platformFee,
-            value: '\$35',
-          ),
+          _PriceRow(label: context.l10n.platformFee, value: '\$35'),
           const Divider(height: 24),
           _PriceRow(
-            label: AppStrings.total,
+            label: context.l10n.total,
             value: _formatCurrency(total),
             emphasize: true,
           ),
@@ -467,19 +449,16 @@ class _BookingSummary extends StatelessWidget {
                 ),
               ),
               onPressed: onBook,
-              child: const Text(
-                'Agendar ahora',
-                style: TextStyle(fontWeight: FontWeight.w700),
+              child: Text(
+                context.l10n.bookNow,
+                style: const TextStyle(fontWeight: FontWeight.w700),
               ),
             ),
           ),
           const SizedBox(height: 10),
-          const Text(
-            AppStrings.cancellationPolicy,
-            style: TextStyle(
-              color: Color(0xFF7A7A7A),
-              fontSize: 12.5,
-            ),
+          Text(
+            context.l10n.cancellationPolicy,
+            style: const TextStyle(color: Color(0xFF7A7A7A), fontSize: 12.5),
           ),
         ],
       ),
@@ -507,10 +486,7 @@ class _SectionCard extends StatelessWidget {
         children: <Widget>[
           Text(
             title,
-            style: const TextStyle(
-              fontWeight: FontWeight.w800,
-              fontSize: 16,
-            ),
+            style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
           ),
           const SizedBox(height: 10),
           child,
@@ -605,9 +581,7 @@ class _Pill extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.16),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: Colors.white.withValues(alpha: 0.2),
-        ),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -640,9 +614,7 @@ class _IconBadge extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.18),
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(
-          color: Colors.white.withValues(alpha: 0.2),
-        ),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
       ),
       child: Icon(icon, color: Colors.white, size: 22),
     );
@@ -757,8 +729,7 @@ class _Review {
   });
 }
 
-const Map<String, _ServiceDetail> _serviceCatalog =
-    <String, _ServiceDetail>{
+const Map<String, _ServiceDetail> _serviceCatalog = <String, _ServiceDetail>{
   'plomeria': _ServiceDetail(
     id: 'plomeria',
     providerId: 'carlos-gomez',
@@ -844,8 +815,7 @@ const Map<String, _ServiceDetail> _serviceCatalog =
       _Review(
         name: 'Jorge Diaz',
         rating: 4.7,
-        comment:
-            'Buen servicio. Dejaron todo en orden y avisaron al terminar.',
+        comment: 'Buen servicio. Dejaron todo en orden y avisaron al terminar.',
         dateLabel: 'Hace 2 semanas',
       ),
     ],
@@ -882,15 +852,13 @@ const Map<String, _ServiceDetail> _serviceCatalog =
       _Review(
         name: 'Ricardo Leon',
         rating: 4.6,
-        comment:
-            'Muy profesional y resolvio el problema rapido. Recomendable.',
+        comment: 'Muy profesional y resolvio el problema rapido. Recomendable.',
         dateLabel: 'Hace 5 dias',
       ),
       _Review(
         name: 'Ana Cardenas',
         rating: 4.8,
-        comment:
-            'Explico todo con claridad y dejo todo funcionando perfecto.',
+        comment: 'Explico todo con claridad y dejo todo funcionando perfecto.',
         dateLabel: 'Hace 3 semanas',
       ),
     ],

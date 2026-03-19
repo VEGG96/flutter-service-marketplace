@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_service_marketplace/l10n/l10n_extension.dart';
 
-import '../../../../core/constants/app_strings.dart';
 class ProviderAvailabilityPage extends StatefulWidget {
   const ProviderAvailabilityPage({super.key});
 
@@ -51,14 +51,14 @@ class _ProviderAvailabilityPageState extends State<ProviderAvailabilityPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(AppStrings.configureAvailability),
+        title:  Text(context.l10n.configureAvailability),
       ),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            const Text(
-              AppStrings.selectDays,
+             Text(
+              context.l10n.selectDays,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 12),
@@ -74,8 +74,8 @@ class _ProviderAvailabilityPageState extends State<ProviderAvailabilityPage> {
               );
             }),
             const Divider(height: 32),
-            const Text(
-              AppStrings.workingHours,
+             Text(
+              context.l10n.workingHours,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),
@@ -85,14 +85,14 @@ class _ProviderAvailabilityPageState extends State<ProviderAvailabilityPage> {
                   child: OutlinedButton(
                     onPressed: _pickStartTime,
                     child:
-                        Text('${AppStrings.start}: ${_startTime.format(context)}'),
+                        Text('${context.l10n.start}: ${_startTime.format(context)}'),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: OutlinedButton(
                     onPressed: _pickEndTime,
-                    child: Text('${AppStrings.end}: ${_endTime.format(context)}'),
+                    child: Text('${context.l10n.end}: ${_endTime.format(context)}'),
                   ),
                 ),
               ],
@@ -102,10 +102,10 @@ class _ProviderAvailabilityPageState extends State<ProviderAvailabilityPage> {
               onPressed: () {
                 // TODO: guardar cambios
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text(AppStrings.availabilitySaved)),
+                   SnackBar(content: Text(context.l10n.availabilitySaved)),
                 );
               },
-              child: const Text(AppStrings.saveAvailability),
+              child:  Text(context.l10n.saveAvailability),
             ),
           ],
         ),

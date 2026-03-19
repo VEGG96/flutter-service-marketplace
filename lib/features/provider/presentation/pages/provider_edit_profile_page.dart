@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_service_marketplace/l10n/l10n_extension.dart';
 import '../../../../core/di/injection_container.dart';
-import '../../../../core/constants/app_strings.dart';
 import '../../../../core/utils/validators.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/error_widget.dart';
@@ -16,7 +15,8 @@ class ProviderEditProfilePage extends StatefulWidget {
   const ProviderEditProfilePage({super.key});
 
   @override
-  State<ProviderEditProfilePage> createState() => _ProviderEditProfilePageState();
+  State<ProviderEditProfilePage> createState() =>
+      _ProviderEditProfilePageState();
 }
 
 class _ProviderEditProfilePageState extends State<ProviderEditProfilePage> {
@@ -134,16 +134,16 @@ class _ProviderEditProfilePageState extends State<ProviderEditProfilePage> {
             return Scaffold(
               body: LoadingWidget(
                 isExpanded: true,
-                message: AppStrings.loadingProfile,
+                message: context.l10n.loadingProfile,
               ),
             );
           }
 
           if (state.profile == null) {
             return Scaffold(
-              appBar: AppBar(title: const Text(AppStrings.myProfile)),
+              appBar: AppBar(title: Text(context.l10n.myProfile)),
               body: AppErrorWidget(
-                message: AppStrings.profileLoadError,
+                message: context.l10n.profileLoadError,
                 onRetry: () => _profileBloc.add(ProfileStarted()),
               ),
             );
@@ -152,9 +152,7 @@ class _ProviderEditProfilePageState extends State<ProviderEditProfilePage> {
           final ProfileEntity profile = state.profile!;
 
           return Scaffold(
-            appBar: AppBar(
-              title: const Text(AppStrings.editProviderProfile),
-            ),
+            appBar: AppBar(title: Text(context.l10n.editProviderProfile)),
             body: SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: Form(
@@ -164,28 +162,30 @@ class _ProviderEditProfilePageState extends State<ProviderEditProfilePage> {
                   children: <Widget>[
                     _ProviderProfileHeader(profile: profile),
                     const SizedBox(height: 18),
-                    _ReadOnlyInfoTile(label: AppStrings.email, value: profile.email),
+                    _ReadOnlyInfoTile(
+                      label: context.l10n.email,
+                      value: profile.email,
+                    ),
                     const SizedBox(height: 12),
                     TextFormField(
                       controller: _fullNameController,
-                      validator: (String? value) =>
-                          Validators.requiredField(
-                            value,
-                            fieldName: AppStrings.name,
-                          ),
+                      validator: (String? value) => Validators.requiredField(
+                        value,
+                        fieldName: context.l10n.name,
+                      ),
                       textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        labelText: AppStrings.fullName,
-                        prefixIcon: Icon(Icons.person_outline_rounded),
+                      decoration: InputDecoration(
+                        labelText: context.l10n.fullName,
+                        prefixIcon: const Icon(Icons.person_outline_rounded),
                       ),
                     ),
                     const SizedBox(height: 12),
                     TextFormField(
                       controller: _businessNameController,
                       textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        labelText: AppStrings.businessName,
-                        prefixIcon: Icon(Icons.business_outlined),
+                      decoration: InputDecoration(
+                        labelText: context.l10n.businessName,
+                        prefixIcon: const Icon(Icons.business_outlined),
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -193,36 +193,36 @@ class _ProviderEditProfilePageState extends State<ProviderEditProfilePage> {
                       controller: _phoneController,
                       keyboardType: TextInputType.phone,
                       textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        labelText: AppStrings.phone,
-                        prefixIcon: Icon(Icons.phone_outlined),
+                      decoration: InputDecoration(
+                        labelText: context.l10n.phone,
+                        prefixIcon: const Icon(Icons.phone_outlined),
                       ),
                     ),
                     const SizedBox(height: 12),
                     TextFormField(
                       controller: _cityController,
                       textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        labelText: AppStrings.cityOfOperation,
-                        prefixIcon: Icon(Icons.location_city_outlined),
+                      decoration: InputDecoration(
+                        labelText: context.l10n.cityOfOperation,
+                        prefixIcon: const Icon(Icons.location_city_outlined),
                       ),
                     ),
                     const SizedBox(height: 12),
                     TextFormField(
                       controller: _addressController,
                       textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        labelText: AppStrings.address,
-                        prefixIcon: Icon(Icons.pin_drop_outlined),
+                      decoration: InputDecoration(
+                        labelText: context.l10n.address,
+                        prefixIcon: const Icon(Icons.pin_drop_outlined),
                       ),
                     ),
                     const SizedBox(height: 12),
                     TextFormField(
                       controller: _serviceAreaController,
                       textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        labelText: AppStrings.serviceAreaLabel,
-                        prefixIcon: Icon(Icons.map_outlined),
+                      decoration: InputDecoration(
+                        labelText: context.l10n.serviceAreaLabel,
+                        prefixIcon: const Icon(Icons.map_outlined),
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -230,19 +230,19 @@ class _ProviderEditProfilePageState extends State<ProviderEditProfilePage> {
                       controller: _hourlyRateController,
                       keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        labelText: AppStrings.hourlyRate,
-                        prefixIcon: Icon(Icons.attach_money),
+                      decoration: InputDecoration(
+                        labelText: context.l10n.hourlyRate,
+                        prefixIcon: const Icon(Icons.attach_money),
                       ),
                     ),
                     const SizedBox(height: 12),
                     TextFormField(
                       controller: _specialtiesController,
                       textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        labelText: AppStrings.specialties,
+                      decoration: InputDecoration(
+                        labelText: context.l10n.specialties,
                         hintText: 'Ej: plomería, electricidad, pintura',
-                        prefixIcon: Icon(Icons.list_alt_outlined),
+                        prefixIcon: const Icon(Icons.list_alt_outlined),
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -252,7 +252,7 @@ class _ProviderEditProfilePageState extends State<ProviderEditProfilePage> {
                       maxLength: 250,
                       textAlignVertical: TextAlignVertical.top,
                       decoration: InputDecoration(
-                        labelText: AppStrings.serviceDescription,
+                        labelText: context.l10n.serviceDescription,
                         alignLabelWithHint: true,
                         contentPadding: const EdgeInsets.fromLTRB(
                           0,
@@ -274,7 +274,7 @@ class _ProviderEditProfilePageState extends State<ProviderEditProfilePage> {
                     ),
                     const SizedBox(height: 20),
                     AppButton(
-                      label: AppStrings.saveChanges,
+                      label: context.l10n.saveChanges,
                       icon: Icons.save_outlined,
                       isLoading: state.isSaving,
                       onPressed: _saveProfile,
@@ -308,7 +308,7 @@ class _ProviderProfileHeader extends StatelessWidget {
         ),
         boxShadow: <BoxShadow>[
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.18),
+            color: Colors.black.withOpacity(0.18),
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),
@@ -318,7 +318,7 @@ class _ProviderProfileHeader extends StatelessWidget {
         children: <Widget>[
           CircleAvatar(
             radius: 28,
-            backgroundColor: Colors.white.withValues(alpha: 0.2),
+            backgroundColor: Colors.white.withOpacity(0.2),
             child: Text(
               profile.initials,
               style: const TextStyle(
@@ -343,10 +343,10 @@ class _ProviderProfileHeader extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   profile.businessName.isEmpty
-                      ? AppStrings.providerLabel
+                      ? context.l10n.providerLabel
                       : profile.businessName,
                   style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.85),
+                    color: Colors.white.withOpacity(0.85),
                     fontSize: 13.5,
                     fontWeight: FontWeight.w500,
                   ),
@@ -371,10 +371,7 @@ class _ReadOnlyInfoTile extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          label,
-          style: const TextStyle(fontSize: 12, color: Colors.grey),
-        ),
+        Text(label, style: const TextStyle(fontSize: 12, color: Colors.grey)),
         const SizedBox(height: 4),
         Text(
           value,

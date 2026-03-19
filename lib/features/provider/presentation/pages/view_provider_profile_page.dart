@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_service_marketplace/l10n/l10n_extension.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../core/constants/app_constants.dart';
-import '../../../../core/constants/app_strings.dart';
 
 class ViewProviderProfilePage extends StatelessWidget {
   final String providerId;
@@ -120,7 +119,12 @@ class _ProviderHero extends StatelessWidget {
             children: <Widget>[
               CircleAvatar(
                 radius: 28,
-                backgroundColor: Color.fromARGB((0.2 * 255).round(), 255, 255, 255),
+                backgroundColor: Color.fromARGB(
+                  (0.2 * 255).round(),
+                  255,
+                  255,
+                  255,
+                ),
                 child: Text(
                   provider.initials,
                   style: const TextStyle(
@@ -146,7 +150,12 @@ class _ProviderHero extends StatelessWidget {
                     Text(
                       provider.title,
                       style: TextStyle(
-                        color: Color.fromARGB((0.85 * 255).round(), 255, 255, 255),
+                        color: Color.fromARGB(
+                          (0.85 * 255).round(),
+                          255,
+                          255,
+                          255,
+                        ),
                         fontSize: 13.5,
                         fontWeight: FontWeight.w500,
                       ),
@@ -173,10 +182,7 @@ class _ProviderHero extends StatelessWidget {
                 icon: Icons.schedule_rounded,
                 label: 'Respuesta ${provider.responseTime}',
               ),
-              _Pill(
-                icon: Icons.place_rounded,
-                label: provider.city,
-              ),
+              _Pill(icon: Icons.place_rounded, label: provider.city),
             ],
           ),
         ],
@@ -209,10 +215,8 @@ class _AboutBlock extends StatelessWidget {
           runSpacing: 8,
           children: provider.specialties
               .map(
-                (String item) => _InfoChip(
-                  icon: Icons.check_circle_rounded,
-                  label: item,
-                ),
+                (String item) =>
+                    _InfoChip(icon: Icons.check_circle_rounded, label: item),
               )
               .toList(),
         ),
@@ -410,18 +414,12 @@ class _ReviewTile extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             review.comment,
-            style: const TextStyle(
-              color: Color(0xFF2B2B2B),
-              height: 1.5,
-            ),
+            style: const TextStyle(color: Color(0xFF2B2B2B), height: 1.5),
           ),
           const SizedBox(height: 8),
           Text(
             review.dateLabel,
-            style: const TextStyle(
-              color: Color(0xFF7A7A7A),
-              fontSize: 12.5,
-            ),
+            style: const TextStyle(color: Color(0xFF7A7A7A), fontSize: 12.5),
           ),
         ],
       ),
@@ -452,8 +450,8 @@ class _ContactCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            AppStrings.availability,
+          Text(
+            context.l10n.availability,
             style: TextStyle(
               color: Color(0xFF4B4B4B),
               fontWeight: FontWeight.w600,
@@ -469,8 +467,14 @@ class _ContactCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          _InfoRow(label: AppStrings.responseTime, value: provider.responseTime),
-          _InfoRow(label: AppStrings.averageRate, value: provider.averagePrice),
+          _InfoRow(
+            label: context.l10n.responseTime,
+            value: provider.responseTime,
+          ),
+          _InfoRow(
+            label: context.l10n.averageRate,
+            value: provider.averagePrice,
+          ),
           const Divider(height: 24),
           SizedBox(
             width: double.infinity,
@@ -483,8 +487,8 @@ class _ContactCard extends StatelessWidget {
                 ),
               ),
               onPressed: onBook,
-              child: const Text(
-                AppStrings.bookNow,
+              child: Text(
+                context.l10n.bookNow,
                 style: TextStyle(fontWeight: FontWeight.w700),
               ),
             ),
@@ -495,7 +499,7 @@ class _ContactCard extends StatelessWidget {
             height: 44,
             child: OutlinedButton(
               onPressed: onMessage,
-              child: const Text(AppStrings.sendMessage),
+              child: Text(context.l10n.sendMessage),
             ),
           ),
         ],
@@ -517,17 +521,15 @@ class _ScoreBadge extends StatelessWidget {
       decoration: BoxDecoration(
         color: Color.fromARGB((0.18 * 255).round(), 255, 255, 255),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Color.fromARGB((0.2 * 255).round(), 255, 255, 255)),
+        border: Border.all(
+          color: Color.fromARGB((0.2 * 255).round(), 255, 255, 255),
+        ),
       ),
       child: Column(
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(
-                Icons.star_rounded,
-                color: Colors.white,
-                size: 16,
-              ),
+              const Icon(Icons.star_rounded, color: Colors.white, size: 16),
               const SizedBox(width: 4),
               Text(
                 rating.toStringAsFixed(1),
@@ -572,10 +574,7 @@ class _SectionCard extends StatelessWidget {
         children: <Widget>[
           Text(
             title,
-            style: const TextStyle(
-              fontWeight: FontWeight.w800,
-              fontSize: 16,
-            ),
+            style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
           ),
           const SizedBox(height: 10),
           child,
@@ -762,8 +761,8 @@ class _ProviderReview {
   });
 }
 
-const Map<String, _ProviderProfile> _providerCatalog =
-    <String, _ProviderProfile>{
+const Map<String, _ProviderProfile>
+_providerCatalog = <String, _ProviderProfile>{
   'carlos-gomez': _ProviderProfile(
     id: 'carlos-gomez',
     name: 'Carlos Gomez',
@@ -806,8 +805,7 @@ const Map<String, _ProviderProfile> _providerCatalog =
       _ProviderReview(
         name: 'Miguel Torres',
         rating: 4.8,
-        comment:
-            'Muy atentos y explicaron todo el problema antes de reparar.',
+        comment: 'Muy atentos y explicaron todo el problema antes de reparar.',
         dateLabel: 'Hace 1 semana',
       ),
     ],
@@ -854,8 +852,7 @@ const Map<String, _ProviderProfile> _providerCatalog =
       _ProviderReview(
         name: 'Jorge Diaz',
         rating: 4.7,
-        comment:
-            'Resultado limpio y ordenado. Volveria a contratar.',
+        comment: 'Resultado limpio y ordenado. Volveria a contratar.',
         dateLabel: 'Hace 2 semanas',
       ),
     ],
@@ -895,8 +892,7 @@ const Map<String, _ProviderProfile> _providerCatalog =
       _ProviderReview(
         name: 'Ricardo Leon',
         rating: 4.6,
-        comment:
-            'Resolvio el problema rapido y explico todo el proceso.',
+        comment: 'Resolvio el problema rapido y explico todo el proceso.',
         dateLabel: 'Hace 5 dias',
       ),
       _ProviderReview(

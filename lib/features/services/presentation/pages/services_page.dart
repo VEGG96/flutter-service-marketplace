@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_service_marketplace/l10n/l10n_extension.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../core/constants/app_constants.dart';
-import '../../../../core/constants/app_strings.dart';
 import '../../../../core/widgets/content_skeletons.dart';
 import '../../../../core/widgets/empty_state_widget.dart';
 import '../../../../core/widgets/request_state_widget.dart';
@@ -64,7 +63,7 @@ class _ServicesPageState extends State<ServicesPage> {
           children: <Widget>[
             const Icon(Icons.build_rounded, size: 22),
             const SizedBox(width: 8),
-            Text(AppStrings.appBrand),
+            Text(context.l10n.appBrand),
           ],
         ),
         actions: <Widget>[
@@ -81,9 +80,9 @@ class _ServicesPageState extends State<ServicesPage> {
         onRetry: widget.onRetry,
         loading: const ServicesScreenSkeleton(),
         empty: EmptyStateWidget(
-          title: AppStrings.noServicesAvailable,
-          message: AppStrings.adjustSearchOrReload,
-          actionLabel: AppStrings.reload,
+          title: context.l10n.noServicesAvailable,
+          message: context.l10n.adjustSearchOrReload,
+          actionLabel: context.l10n.reload,
           onAction: widget.onRetry,
           icon: Icons.location_off_outlined,
         ),

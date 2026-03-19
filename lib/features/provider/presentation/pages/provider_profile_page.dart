@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_service_marketplace/l10n/l10n_extension.dart';
 
 import '../../../../core/di/injection_container.dart';
-import '../../../../core/constants/app_strings.dart';
 import '../../../../core/utils/validators.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/error_widget.dart';
@@ -85,7 +85,10 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
           address: _addressController.text,
           bio: _bioController.text,
           serviceArea: _serviceAreaController.text,
-          specialties: _specialtiesController.text.split(',').map((e) => e.trim()).toList(),
+          specialties: _specialtiesController.text
+              .split(',')
+              .map((e) => e.trim())
+              .toList(),
           hourlyRate: double.tryParse(_hourlyRateController.text) ?? 0,
         ),
       ),
@@ -131,16 +134,16 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
             return Scaffold(
               body: LoadingWidget(
                 isExpanded: true,
-                message: AppStrings.loadingProfile,
+                message: context.l10n.loadingProfile,
               ),
             );
           }
 
           if (state.profile == null) {
             return Scaffold(
-              appBar: AppBar(title: const Text(AppStrings.myProfile)),
+              appBar: AppBar(title: Text(context.l10n.myProfile)),
               body: AppErrorWidget(
-                message: AppStrings.profileLoadError,
+                message: context.l10n.profileLoadError,
                 onRetry: () => _profileBloc.add(ProfileStarted()),
               ),
             );
@@ -150,7 +153,7 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
 
           return Scaffold(
             appBar: AppBar(
-              title: const Text(AppStrings.myProfile),
+              title: Text(context.l10n.myProfile),
               actions: [
                 IconButton(
                   icon: const Icon(Icons.settings_outlined),
@@ -178,18 +181,20 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
                           _profileBloc.add(ProfileImageUploadRequested()),
                     ),
                     const SizedBox(height: 18),
-                    _ReadOnlyInfoTile(label: AppStrings.email, value: profile.email),
+                    _ReadOnlyInfoTile(
+                      label: context.l10n.email,
+                      value: profile.email,
+                    ),
                     const SizedBox(height: 12),
                     TextFormField(
                       controller: _fullNameController,
-                      validator: (String? value) =>
-                          Validators.requiredField(
-                            value,
-                            fieldName: AppStrings.name,
-                          ),
+                      validator: (String? value) => Validators.requiredField(
+                        value,
+                        fieldName: context.l10n.name,
+                      ),
                       textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        labelText: AppStrings.fullName,
+                      decoration: InputDecoration(
+                        labelText: context.l10n.fullName,
                         prefixIcon: Icon(Icons.person_outline_rounded),
                       ),
                     ),
@@ -197,8 +202,8 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
                     TextFormField(
                       controller: _businessNameController,
                       textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        labelText: AppStrings.businessName,
+                      decoration: InputDecoration(
+                        labelText: context.l10n.businessName,
                         prefixIcon: Icon(Icons.business_center_outlined),
                       ),
                     ),
@@ -207,8 +212,8 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
                       controller: _phoneController,
                       keyboardType: TextInputType.phone,
                       textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        labelText: AppStrings.phone,
+                      decoration: InputDecoration(
+                        labelText: context.l10n.phone,
                         prefixIcon: Icon(Icons.phone_outlined),
                       ),
                     ),
@@ -216,8 +221,8 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
                     TextFormField(
                       controller: _cityController,
                       textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        labelText: AppStrings.city,
+                      decoration: InputDecoration(
+                        labelText: context.l10n.city,
                         prefixIcon: Icon(Icons.location_city_outlined),
                       ),
                     ),
@@ -225,8 +230,8 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
                     TextFormField(
                       controller: _addressController,
                       textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        labelText: AppStrings.address,
+                      decoration: InputDecoration(
+                        labelText: context.l10n.address,
                         prefixIcon: Icon(Icons.pin_drop_outlined),
                       ),
                     ),
@@ -234,8 +239,8 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
                     TextFormField(
                       controller: _serviceAreaController,
                       textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        labelText: AppStrings.serviceAreaLabel,
+                      decoration: InputDecoration(
+                        labelText: context.l10n.serviceAreaLabel,
                         prefixIcon: Icon(Icons.map_outlined),
                       ),
                     ),
@@ -244,8 +249,8 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
                       controller: _hourlyRateController,
                       keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        labelText: AppStrings.hourlyRate,
+                      decoration: InputDecoration(
+                        labelText: context.l10n.hourlyRate,
                         prefixIcon: Icon(Icons.attach_money),
                       ),
                     ),
@@ -253,8 +258,8 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
                     TextFormField(
                       controller: _specialtiesController,
                       textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        labelText: AppStrings.specialties,
+                      decoration: InputDecoration(
+                        labelText: context.l10n.specialties,
                         hintText: 'Ej: plomería, electricidad, pintura',
                         prefixIcon: Icon(Icons.list_alt_outlined),
                       ),
@@ -266,7 +271,7 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
                       maxLength: 250,
                       textAlignVertical: TextAlignVertical.top,
                       decoration: InputDecoration(
-                        labelText: AppStrings.aboutMe,
+                        labelText: context.l10n.aboutMe,
                         alignLabelWithHint: true,
                         contentPadding: const EdgeInsets.fromLTRB(
                           0,
@@ -288,7 +293,7 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
                     ),
                     const SizedBox(height: 20),
                     AppButton(
-                      label: AppStrings.saveProfile,
+                      label: context.l10n.saveProfile,
                       icon: Icons.save_outlined,
                       isLoading: state.isSaving,
                       onPressed: _saveProfile,
@@ -373,7 +378,7 @@ class _ProfileHeader extends StatelessWidget {
         const SizedBox(height: 10),
         Text(
           profile.fullName.trim().isEmpty
-              ? AppStrings.completeYourProfile
+              ? context.l10n.completeYourProfile
               : profile.fullName,
           style: Theme.of(
             context,
@@ -398,7 +403,9 @@ class _ReadOnlyInfoTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Color.fromARGB((0.06 * 255).round(), 0, 0, 0)),
+        border: Border.all(
+          color: Color.fromARGB((0.06 * 255).round(), 0, 0, 0),
+        ),
       ),
       child: Row(
         children: <Widget>[

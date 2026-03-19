@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_service_marketplace/l10n/app_localizations.dart';
 
-import 'core/constants/app_constants.dart';
+
 import 'core/di/injection_container.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
@@ -28,20 +28,12 @@ class App extends StatelessWidget {
       child: Builder(
         builder: (BuildContext context) {
           return MaterialApp.router(
-            title: AppConstants.appName,
+            onGenerateTitle: (context) => AppLocalizations.of(context)!.appName,
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
             themeMode: ThemeMode.system,
-            locale: const Locale('es', 'ES'),
-            supportedLocales: const [
-              Locale('es', 'ES'),
-              Locale('en', 'US'),
-            ],
-            localizationsDelegates: const [
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
+            supportedLocales: AppLocalizations.supportedLocales,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
             routerConfig: createRouter(context.read<AuthBloc>()),
           );
         },

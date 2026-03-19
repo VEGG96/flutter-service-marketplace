@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_service_marketplace/l10n/l10n_extension.dart';
 
-import '../../../../core/constants/app_strings.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_event.dart';
@@ -23,8 +23,9 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+ 
     return Scaffold(
-      appBar: AppBar(title: const Text(AppStrings.settings)),
+      appBar: AppBar(title: Text(context.l10n.settings)),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.symmetric(vertical: 16),
@@ -32,7 +33,7 @@ class _SettingsPageState extends State<SettingsPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                AppStrings.notifications,
+                context.l10n.notifications,
                 style: AppTextStyles.sectionTitle(context),
               ),
             ),
@@ -40,8 +41,8 @@ class _SettingsPageState extends State<SettingsPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: SwitchListTile(
-                title: const Text(AppStrings.receiveNotifications),
-                subtitle: const Text(AppStrings.notificationsSubtitle),
+                title: Text(context.l10n.receiveNotifications),
+                subtitle: Text(context.l10n.notificationsSubtitle),
                 value: _notificationsEnabled,
                 onChanged: _setNotificationsEnabled,
               ),
@@ -50,7 +51,7 @@ class _SettingsPageState extends State<SettingsPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                AppStrings.settings,
+                context.l10n.settings,
                 style: AppTextStyles.sectionTitle(context),
               ),
             ),
@@ -61,15 +62,14 @@ class _SettingsPageState extends State<SettingsPage> {
                 children: <Widget>[
                   ListTile(
                     leading: const Icon(Icons.lock_outline_rounded),
-                    title: const Text(AppStrings.changePassword),
+                    title: Text(context.l10n.changePassword),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {},
                   ),
-
                   const Divider(height: 1),
                   ListTile(
                     leading: const Icon(Icons.logout),
-                    title: const Text(AppStrings.logout),
+                    title: Text(context.l10n.logout),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
                       context.read<AuthBloc>().add(SignOutRequested());
@@ -82,7 +82,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       color: Theme.of(context).colorScheme.error,
                     ),
                     title: Text(
-                      AppStrings.deleteAccount,
+                      context.l10n.deleteAccount,
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.error,
                       ),
@@ -92,7 +92,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       final bool? confirmed = await showDialog<bool>(
                         context: context,
                         builder: (dialogContext) => AlertDialog(
-                          title: const Text(AppStrings.deleteAccount),
+                          title: Text(context.l10n.deleteAccount),
                           content: const Text(
                             'Esta acción es permanente. ¿Deseas continuar?',
                           ),
@@ -100,13 +100,13 @@ class _SettingsPageState extends State<SettingsPage> {
                             TextButton(
                               onPressed: () =>
                                   Navigator.of(dialogContext).pop(false),
-                              child: const Text(AppStrings.cancel),
+                              child: Text(context.l10n.cancel),
                             ),
                             TextButton(
                               onPressed: () =>
                                   Navigator.of(dialogContext).pop(true),
                               child: Text(
-                                AppStrings.delete,
+                                context.l10n.delete,
                                 style: TextStyle(
                                   color: Theme.of(context).colorScheme.error,
                                 ),
