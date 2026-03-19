@@ -7,30 +7,26 @@ import '../../../../core/utils/validators.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/error_widget.dart';
 import '../../../../core/widgets/loading_widget.dart';
-import '../../../../features/profile/domain/entities/profile_entity.dart';
-import '../../../../features/profile/presentation/bloc/profile_bloc.dart';
-import '../../../../features/profile/presentation/bloc/profile_event.dart';
-import '../../../../features/profile/presentation/bloc/profile_state.dart';
-import '../../../../features/profile/presentation/pages/settings_page.dart';
+import '../../domain/entities/profile_entity.dart';
+import '../bloc/profile_bloc.dart';
+import '../bloc/profile_event.dart';
+import '../bloc/profile_state.dart';
+import 'settings_page.dart';
 
-class ProviderProfilePage extends StatefulWidget {
-  const ProviderProfilePage({super.key});
+class UserProfilePage extends StatefulWidget {
+  const UserProfilePage({super.key});
 
   @override
-  State<ProviderProfilePage> createState() => _ProviderProfilePageState();
+  State<UserProfilePage> createState() => _UserProfilePageState();
 }
 
-class _ProviderProfilePageState extends State<ProviderProfilePage> {
+class _UserProfilePageState extends State<UserProfilePage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _fullNameController = TextEditingController();
-  final TextEditingController _businessNameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
-  final TextEditingController _serviceAreaController = TextEditingController();
-  final TextEditingController _specialtiesController = TextEditingController();
-  final TextEditingController _hourlyRateController = TextEditingController();
 
   late final ProfileBloc _profileBloc;
   bool _didHydrateForm = false;
@@ -44,14 +40,10 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
   @override
   void dispose() {
     _fullNameController.dispose();
-    _businessNameController.dispose();
     _phoneController.dispose();
     _cityController.dispose();
     _addressController.dispose();
     _bioController.dispose();
-    _serviceAreaController.dispose();
-    _specialtiesController.dispose();
-    _hourlyRateController.dispose();
     _profileBloc.close();
     super.dispose();
   }
@@ -60,14 +52,10 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
     if (_didHydrateForm) return;
 
     _fullNameController.text = profile.fullName;
-    _businessNameController.text = profile.businessName;
     _phoneController.text = profile.phone;
     _cityController.text = profile.city;
     _addressController.text = profile.address;
     _bioController.text = profile.bio;
-    _serviceAreaController.text = profile.serviceArea;
-    _specialtiesController.text = profile.specialties.join(', ');
-    _hourlyRateController.text = profile.hourlyRate.toStringAsFixed(0);
     _didHydrateForm = true;
   }
 
@@ -79,14 +67,10 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
       ProfileSaveRequested(
         ProfileSaveInput(
           fullName: _fullNameController.text,
-          businessName: _businessNameController.text,
           phone: _phoneController.text,
           city: _cityController.text,
           address: _addressController.text,
           bio: _bioController.text,
-          serviceArea: _serviceAreaController.text,
-          specialties: _specialtiesController.text.split(',').map((e) => e.trim()).toList(),
-          hourlyRate: double.tryParse(_hourlyRateController.text) ?? 0,
         ),
       ),
     );
@@ -195,15 +179,6 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
                     ),
                     const SizedBox(height: 12),
                     TextFormField(
-                      controller: _businessNameController,
-                      textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        labelText: AppStrings.businessName,
-                        prefixIcon: Icon(Icons.business_center_outlined),
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    TextFormField(
                       controller: _phoneController,
                       keyboardType: TextInputType.phone,
                       textInputAction: TextInputAction.next,
@@ -228,35 +203,6 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
                       decoration: const InputDecoration(
                         labelText: AppStrings.address,
                         prefixIcon: Icon(Icons.pin_drop_outlined),
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    TextFormField(
-                      controller: _serviceAreaController,
-                      textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        labelText: AppStrings.serviceAreaLabel,
-                        prefixIcon: Icon(Icons.map_outlined),
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    TextFormField(
-                      controller: _hourlyRateController,
-                      keyboardType: TextInputType.number,
-                      textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        labelText: AppStrings.hourlyRate,
-                        prefixIcon: Icon(Icons.attach_money),
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    TextFormField(
-                      controller: _specialtiesController,
-                      textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        labelText: AppStrings.specialties,
-                        hintText: 'Ej: plomería, electricidad, pintura',
-                        prefixIcon: Icon(Icons.list_alt_outlined),
                       ),
                     ),
                     const SizedBox(height: 12),

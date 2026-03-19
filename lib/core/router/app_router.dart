@@ -10,11 +10,12 @@ import '../../features/auth/presentation/pages/register_page.dart';
 import '../../features/auth/presentation/pages/splash_page.dart';
 import '../../features/booking/presentation/pages/booking_page.dart';
 import '../../features/chat/presentation/pages/chat_page.dart';
-import '../../features/profile/presentation/pages/profile_page.dart';
+import '../../features/profile/presentation/pages/user_profile_page.dart';
 import '../../features/provider/presentation/pages/provider_dashboard_page.dart';
 import '../../features/provider/presentation/pages/provider_availability_page.dart';
 import '../../features/provider/presentation/pages/provider_profile_page.dart';
 import '../../features/provider/presentation/pages/provider_settings_page.dart';
+import '../../features/provider/presentation/pages/view_provider_profile_page.dart';
 import '../../features/services/presentation/pages/service_detail_page.dart';
 import '../../features/services/presentation/pages/services_page.dart';
 import 'go_router_refresh_stream.dart';
@@ -118,11 +119,18 @@ GoRouter createRouter(AuthBloc authBloc) {
         },
       ),
       GoRoute(
+        path: AppRoutes.viewProviderProfile,
+        name: 'view-provider-profile',
+        builder: (BuildContext context, GoRouterState state) {
+          final String providerId = state.uri.queryParameters['id'] ?? '';
+          return ViewProviderProfilePage(providerId: providerId);
+        },
+      ),
+      GoRoute(
         path: AppRoutes.providerProfile,
         name: 'provider-profile',
         builder: (BuildContext context, GoRouterState state) {
-          final String providerId = state.uri.queryParameters['id'] ?? '';
-          return ProviderProfilePage(providerId: providerId);
+          return const ProviderProfilePage();
         },
       ),
       GoRoute(
@@ -140,8 +148,15 @@ GoRouter createRouter(AuthBloc authBloc) {
       GoRoute(
         path: AppRoutes.profile,
         name: 'profile',
-        builder: (BuildContext context, GoRouterState state) =>
-            const ProfilePage(),
+        builder: (BuildContext context, GoRouterState state) {
+          final authState = authBloc.state;
+          if (authState is Authenticated) {
+            if (authState.user.role == UserRole.provider) {
+              return const ProviderProfilePage();
+            }
+          }
+          return const UserProfilePage();
+        },
       ),
     ],
     errorBuilder: (BuildContext context, GoRouterState state) {

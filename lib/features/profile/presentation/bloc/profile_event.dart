@@ -13,14 +13,14 @@ class ProfileSaveInput extends Equatable {
 
   const ProfileSaveInput({
     required this.fullName,
-    required this.businessName,
+    this.businessName = '',
     required this.phone,
     required this.city,
     required this.address,
     required this.bio,
-    required this.serviceArea,
-    required this.specialties,
-    required this.hourlyRate,
+    this.serviceArea = '',
+    this.specialties = const [],
+    this.hourlyRate = 0.0,
   });
 
   @override

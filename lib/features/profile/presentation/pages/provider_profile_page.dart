@@ -13,14 +13,14 @@ import '../bloc/profile_event.dart';
 import '../bloc/profile_state.dart';
 import 'settings_page.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class ProviderProfilePage extends StatefulWidget {
+  const ProviderProfilePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<ProviderProfilePage> createState() => _ProviderProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProviderProfilePageState extends State<ProviderProfilePage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _businessNameController = TextEditingController();
@@ -85,11 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
           address: _addressController.text,
           bio: _bioController.text,
           serviceArea: _serviceAreaController.text,
-          specialties: _specialtiesController.text
-              .split(',')
-              .map((String item) => item.trim())
-              .where((String item) => item.isNotEmpty)
-              .toList(),
+          specialties: _specialtiesController.text.split(',').map((e) => e.trim()).toList(),
           hourlyRate: double.tryParse(_hourlyRateController.text) ?? 0,
         ),
       ),
@@ -197,7 +193,15 @@ class _ProfilePageState extends State<ProfilePage> {
                         prefixIcon: Icon(Icons.person_outline_rounded),
                       ),
                     ),
-
+                    const SizedBox(height: 12),
+                    TextFormField(
+                      controller: _businessNameController,
+                      textInputAction: TextInputAction.next,
+                      decoration: const InputDecoration(
+                        labelText: AppStrings.businessName,
+                        prefixIcon: Icon(Icons.business_center_outlined),
+                      ),
+                    ),
                     const SizedBox(height: 12),
                     TextFormField(
                       controller: _phoneController,
@@ -394,7 +398,7 @@ class _ReadOnlyInfoTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.black.withValues(alpha: 0.06)),
+        border: Border.all(color: Color.fromARGB((0.06 * 255).round(), 0, 0, 0)),
       ),
       child: Row(
         children: <Widget>[
